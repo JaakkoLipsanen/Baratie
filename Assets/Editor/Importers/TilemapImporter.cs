@@ -43,6 +43,7 @@ namespace Assets.Editor.Importers
                 AssetDatabase.DeleteAsset(tilemapAsset);
             }
 
+            AssetDatabase.Refresh();
             AssetDatabase.SaveAssets();
         } 
     }

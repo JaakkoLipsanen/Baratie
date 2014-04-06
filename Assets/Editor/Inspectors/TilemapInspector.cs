@@ -9,7 +9,6 @@ namespace Assets.Editor.Inspectors
     [CustomEditor(typeof(TilemapData))]
     public class TilemapInspector : InspectorBase<TilemapData>
     {
-        private int? _previousGuid;
         public override void OnInspectorGUI()
         {
             this.DrawTilemapField();
@@ -22,17 +21,11 @@ namespace Assets.Editor.Inspectors
             TilemapData tilemap = this.Target;
             MapData mapData = (MapData)EditorGUILayout.ObjectField("Tilemap", tilemap.Map, typeof(MapData), false);
 
-            int? currentGuid = (mapData == null) ? default(int?) : mapData.UniqueGUID;
-            // todo: this doesn't work when updating a tilemap (not adding new) !! The reference (tilemap.Map) is updated automatically, so mapData and tilemap.Data are in that case the same.
-            // todo: need to do this some other way. for example subscribe to "AssetChanged" etc event or always save t
-
-            tilemap.Map = mapData;
-            if (_previousGuid != currentGuid)
+            if (tilemap.Map != mapData || (mapData != null && mapData.NeedsRefresh))
             {
+                tilemap.Map = mapData;
                 tilemap.OnMapUpdated();
             }
-
-            _previousGuid = currentGuid;
         }
 
         private void DrawSize()
@@ -70,7 +63,6 @@ namespace Assets.Editor.Inspectors
             {
                 tilemap.Map = null;
                 tilemap.OnMapUpdated();
-                _previousGuid = null;
             }
         }
     }

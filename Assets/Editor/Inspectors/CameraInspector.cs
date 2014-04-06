@@ -1,4 +1,8 @@
-﻿using Flai.Editor;
+﻿using System;
+using Assets.Scripts;
+using Assets.Scripts.General;
+using Flai.Diagnostics;
+using Flai.Editor;
 using UnityEditor;
 using UnityEngine;
 
@@ -49,6 +53,16 @@ namespace Assets.Editor.Inspectors
             }
             GUILayout.FlexibleSpace();
             GUILayout.EndHorizontal();
+
+            // todo: this is the only game specific thing :/
+            GUILayout.BeginHorizontal();
+            GUILayout.FlexibleSpace();
+            if (GUILayout.Button("Fit Camera To Room", GUILayout.Width(140)))
+            {
+                this.FitCameraToRoom();
+            }
+            GUILayout.FlexibleSpace();
+            GUILayout.EndHorizontal();
         }
 
         private void Setup2D()
@@ -62,6 +76,32 @@ namespace Assets.Editor.Inspectors
             {
                 camera.transform.SetPositionZ(-5);
             }
+        }
+
+        private void FitCameraToRoom()
+        {
+            GameObject levelGameObject = GameObject.Find("Level");
+            if (levelGameObject == null)
+            {
+                FlaiDebug.LogWithTypeTag<CameraInspector>("Could not find the Level gameobject!");
+                return;
+            }
+
+            Level level = levelGameObject.Get<Level>();
+            TilemapData tilemapData = level.TilemapData;
+            if (tilemapData == null || tilemapData.Map == null)
+            {
+                FlaiDebug.LogWithTypeTag<CameraInspector>("Could not find the Tilemap!");
+                return;
+            }
+
+            int width = tilemapData.Tilemap.Width;
+            int height = tilemapData.Tilemap.Height;
+            int max = Math.Max(width, height);
+
+            Camera camera = this.Target;
+            camera.gameObject.SetPosition2D(width * Tile.Size / 2f, height * Tile.Size / 2f);
+            camera.orthographicSize = max / 2f;
         }
     }
 }

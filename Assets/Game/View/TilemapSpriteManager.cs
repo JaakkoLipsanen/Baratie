@@ -2,6 +2,7 @@
 using Assets.Scripts.General;
 using Flai;
 using System.Collections.Generic;
+using Flai.Diagnostics;
 using UnityEngine;
 
 namespace Assets.Game.View
@@ -34,17 +35,25 @@ namespace Assets.Game.View
             Rect sourceRectangle;
             tilesetManager.GetTile(index, out textureName, out sourceRectangle);
 
-            return Sprite.Create(this.LoadTexture(textureName), sourceRectangle, Vector2.zero, Tile.SizeInTexture);
+            Texture2D texture = this.LoadTexture(textureName);
+            FlaiDebug.Log("{0} - {1} .. {2}", sourceRectangle, texture.GetSize(), texture == null);
+
+            // !!! the SpriteMeshType.FullRect is needed  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            return Sprite.Create(this.LoadTexture(textureName), sourceRectangle, Vector2.zero, Tile.SizeInTexture, 0, SpriteMeshType.FullRect);
         }
 
         private Texture2D LoadTexture(string tileset)
         {
             tileset = tileset.Trim();
             Texture2D texture;
-            if (!_tilesetTextures.TryGetValue(tileset, out texture))
+            if (!_tilesetTextures.TryGetValue(tileset, out texture) || texture == null)
             {
                 texture = Resources.Load<Texture2D>(tileset);
-                _tilesetTextures.Add(tileset, texture);
+                _tilesetTextures.AddOrSetValue(tileset, texture);
+                if (texture == null)
+                {
+                    FlaiDebug.LogWarningWithTypeTag<TilemapSpriteManager>("Couldn't find tileset texture {0}", tileset);
+                }
             }
 
             return texture;

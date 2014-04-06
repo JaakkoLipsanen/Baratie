@@ -20,6 +20,9 @@ namespace Assets.Game.Model.Tilemap
         [SerializeField]
         private int _creationGuid; // can't use GUID since it's not serializable
 
+        [SerializeField]
+        private bool _needsRefresh = true; 
+
         public Tilemap Tilemap
         {
             get { return _tilemap; }
@@ -40,13 +43,14 @@ namespace Assets.Game.Model.Tilemap
             get { return _creationGuid; }
         }
 
+        public bool NeedsRefresh
+        {
+            get { return _needsRefresh; }
+            set { _needsRefresh = value; } // meh
+        }
+
         public void Initialize(Tilemap tilemap, TilesetManager tilesetManager)
         {
-            if (Application.isPlaying)
-            {
-                throw new InvalidOperationException("Cannot initialize the tilemap outside of the editor");
-            }
-
             _tilemap = tilemap;
             _tilesetManager = tilesetManager;
             _creationGuid = Global.Random.Next();
@@ -55,6 +59,7 @@ namespace Assets.Game.Model.Tilemap
         public void CopyFrom(MapData other)
         {
             this.Initialize(other.Tilemap, other.TilesetManager);
+            _needsRefresh = true;
             this.Changed.InvokeIfNotNull();
         }
 

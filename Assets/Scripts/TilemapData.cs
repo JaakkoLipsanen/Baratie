@@ -28,7 +28,7 @@ namespace Assets.Scripts
             this.GetChild("Tiles").DestroyImmediateIfNotNull();
 
             // if the map was removed, then no need to create a new map
-            if (this.Map == null)
+            if (this.Map == null || this.Tilemap == null)
             {
                 return;
             }
@@ -42,11 +42,23 @@ namespace Assets.Scripts
                 {
                     if (this.Tilemap[x, y] != 0)
                     {
-                        GameObject tile = this.CreateTile(x, y);
-                        tile.SetParent(tiles);
+                        try
+                        {
+                            GameObject tile = this.CreateTile(x, y);
+                            tile.SetParent(tiles);
+                        }
+                        catch
+                        {
+                            FlaiDebug.LogErrorWithTypeTag<TilemapData>("Error while creating tiles - aborting");
+                            this.Map = null;
+                            this.OnMapUpdated();
+                            return;
+                        }
                     }
                 }
             }
+
+            this.Map.NeedsRefresh = false;
         }
 
         private GameObject CreateTile(int x, int y)
