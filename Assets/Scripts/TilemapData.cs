@@ -75,7 +75,7 @@ namespace Assets.Scripts
             Sprite sprite = TilemapSpriteManager.Instance.GetSprite(this.Map.TilesetManager, this.Tilemap[x, y]);
             spriteRenderer.sprite = sprite;
 
-            tile.AddComponent<BoxCollider2D>();
+            tile.AddComponent<PolygonCollider2D>();
 
             return tile;
         }

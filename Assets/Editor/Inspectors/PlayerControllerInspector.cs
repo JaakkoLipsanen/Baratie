@@ -14,6 +14,7 @@ namespace Assets.Editor.Inspectors
 
             GUI.enabled = false;
             EditorGUILayout.TextField("Is On Ground", this.Target.IsOnGround.ToString());
+            EditorGUILayout.TextField("Can Jump", this.Target.CanJump.ToString());
 
             GUI.enabled = true;
         }

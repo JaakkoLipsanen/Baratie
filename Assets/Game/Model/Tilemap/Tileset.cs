@@ -18,7 +18,6 @@ namespace Assets.Game.Model.Tilemap
 
         public void GetTile(int id, out string textureName, out Rect sourceRectangle)
         {
-            Debug.Log(id + " " + _tilesets[0].FirstGid);
             Tileset tileset = _tilesets.First(ts => id >= ts.FirstGid  && id < ts.FirstGid + ts.TileCount); // the second check is not necessary
             textureName = tileset.ImageName;
             sourceRectangle = tileset.GetSourceRectangle(id);
@@ -105,7 +104,7 @@ namespace Assets.Game.Model.Tilemap
 
             int absoluteId = id - _firstGid;
             int x = absoluteId % this.WidthInTiles;
-            int y = absoluteId / this.HeightInTiles;
+            int y = absoluteId / this.WidthInTiles;
             return new Rect(x * _tileSize, y * _tileSize, _tileSize, _tileSize);
         }
     }

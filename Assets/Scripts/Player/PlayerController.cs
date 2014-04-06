@@ -1,6 +1,4 @@
-﻿using Assets.Misc;
-using Flai;
-using Flai.Diagnostics;
+﻿using Flai;
 using Flai.Input;
 using UnityEngine;
 
@@ -8,6 +6,9 @@ namespace Assets.Scripts.Player
 {
     public class PlayerController : FlaiScript
     {
+        private float _timeSinceNotInGround = 0f;
+        private bool _isJumping = false;
+
         public bool ShowDebug = false;
         public bool IsControllingEnabled = true;
 
@@ -16,6 +17,7 @@ namespace Assets.Scripts.Player
         public float SpeedAirDrag = 0.5f;
         public float Speed = 10;
         public float JumpForce = 750;
+        public float JumpTimeBias = 0.1f;
 
         public bool IsOnGround
         {
@@ -36,21 +38,35 @@ namespace Assets.Scripts.Player
             }
         }
 
+        public bool CanJump
+        {
+            get { return this.IsOnGround || (!_isJumping && _timeSinceNotInGround <= this.JumpTimeBias); }
+        }
+
         protected override void Update()
         {
+            if (this.IsOnGround)
+            {
+                _isJumping = false;
+                _timeSinceNotInGround = 0;
+            }
+            else
+            {
+                _timeSinceNotInGround += Time.deltaTime;
+            }
+
             this.Control();
         }
 
         private void Control()
         {
-
             float force = 0;
-            if (FlaiInput.IsKeyPressed(KeyCode.A))
+            if (this.IsControllingEnabled && FlaiInput.IsKeyPressed(KeyCode.A))
             {
                 force -= this.Speed;
             }
 
-            if (FlaiInput.IsKeyPressed(KeyCode.D))
+            if (this.IsControllingEnabled && FlaiInput.IsKeyPressed(KeyCode.D))
             {
                 force += this.Speed;
             }
@@ -58,11 +74,12 @@ namespace Assets.Scripts.Player
             force *= this.IsOnGround ? 1 : this.SpeedAirDrag;
             rigidbody2D.velocity += Vector2f.UnitX.ToVector2() * force * Time.deltaTime * AccelerationPower;
             rigidbody2D.velocity = Vector2f.ClampX(rigidbody2D.velocity, -10, 10);
-            if (this.IsOnGround)
+            if (this.CanJump && this.IsControllingEnabled)
             {
                 if (FlaiInput.IsNewKeyPress(KeyCode.Space))
                 {
                     rigidbody2D.AddForce(Vector2f.Up * this.JumpForce);
+                    _isJumping = true;
                 }
             }
 

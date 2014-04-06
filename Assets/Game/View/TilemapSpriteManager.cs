@@ -36,10 +36,9 @@ namespace Assets.Game.View
             tilesetManager.GetTile(index, out textureName, out sourceRectangle);
 
             Texture2D texture = this.LoadTexture(textureName);
-            FlaiDebug.Log("{0} - {1} .. {2}", sourceRectangle, texture.GetSize(), texture == null);
 
             // !!! the SpriteMeshType.FullRect is needed  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            return Sprite.Create(this.LoadTexture(textureName), sourceRectangle, Vector2.zero, Tile.SizeInTexture, 0, SpriteMeshType.FullRect);
+            return Sprite.Create(texture, sourceRectangle, Vector2.zero, Tile.SizeInTexture, 0, SpriteMeshType.FullRect);
         }
 
         private Texture2D LoadTexture(string tileset)

@@ -23,6 +23,11 @@ namespace Assets.Editor.Inspectors
                     EditorGUILayout.EndHorizontal();
                 }
             }
+
+            if (GUILayout.Button("Reset"))
+            {
+                this.Target.Reset();
+            }
         }
     }
 }

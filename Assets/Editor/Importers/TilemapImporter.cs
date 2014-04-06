@@ -33,10 +33,12 @@ namespace Assets.Editor.Importers
                 {
                     previousData.CopyFrom(mapData);
                     FlaiDebug.LogWithTypeTag<TilemapImporter>("Tilemap {0} updated!", fileName);
+                    EditorUtility.SetDirty(previousData);
                 }
                 else
                 {
                     AssetDatabase.CreateAsset(mapData, finalPath);
+                    EditorUtility.SetDirty(mapData);
                     FlaiDebug.LogWithTypeTag<TilemapImporter>("Tilemap {0} imported succesfully!", fileName);
                 }
 

@@ -1,5 +1,6 @@
 ﻿using Assets.Game.Model.Tilemap;
 using Assets.Scripts;
+using Flai.Diagnostics;
 using Flai.Editor;
 using UnityEditor;
 using UnityEngine;
@@ -21,10 +22,16 @@ namespace Assets.Editor.Inspectors
             TilemapData tilemap = this.Target;
             MapData mapData = (MapData)EditorGUILayout.ObjectField("Tilemap", tilemap.Map, typeof(MapData), false);
 
-            if (tilemap.Map != mapData || (mapData != null && mapData.NeedsRefresh))
+            if (tilemap.Map != null && mapData == null)
+            {
+                FlaiDebug.LogWithTypeTag<TilemapInspector>("Tilemap set null!");
+            }
+
+            if (tilemap.Map != mapData || (tilemap.Map != null && tilemap.Map.NeedsRefresh))
             {
                 tilemap.Map = mapData;
                 tilemap.OnMapUpdated();
+                EditorUtility.SetDirty(tilemap);
             }
         }
 
