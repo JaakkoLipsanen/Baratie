@@ -1,48 +1,26 @@
-﻿using System;
+﻿using Assets.Game.Model;
 using Assets.Scripts.General;
 using Flai;
 using Flai.Diagnostics;
 using Flai.Input;
+using System;
 using UnityEngine;
 
 namespace Assets.Scripts.Player
 {
-    public enum GameDimension
-    {
-        Both,
-        White,
-        Black,
-    }
-
-    public static class GameDimensionHelper
-    {
-        public static GameDimension Opposite(this GameDimension gameDimension)
-        {
-            switch (gameDimension)
-            {
-                case GameDimension.Black:
-                    return GameDimension.White;
-
-                case GameDimension.White:
-                    return GameDimension.Black;
-
-                default:
-                    return GameDimension.Both;
-            }
-        }
-    }
-
     public class PlayerManager : FlaiScript
     {
         private float _shiftPressedDownTime = 0f;
         private bool _isShiftActionDone = false;
-
-        public GameObject PlayerPrefab;
-        private GameDimension _currentGameDimension; // null == not seperated, 0 == first one, 1 == second one
+        private GameDimension _currentGameDimension;
 
         private GameObject _combinedPlayer;
         private GameObject _whitePlayer;
         private GameObject _blackPlayer;
+        private GameObject _playerArrow;
+
+        public GameObject PlayerPrefab;
+        public GameObject PlayerArrowPrefab;
 
         public GameDimension CurrentGameDimension
         {
@@ -97,11 +75,18 @@ namespace Assets.Scripts.Player
         protected override void Awake()
         {
             _combinedPlayer = this.CreatePlayer(this.Position2D, "CombinedPlayer");
+            _playerArrow = this.PlayerArrowPrefab.Instantiate(Vector2f.Up * 1);
         }
 
         protected override void Update()
         {
             this.HandleInput();
+        }
+
+        protected override void LateUpdate()
+        {
+            _playerArrow.SetParent(this.CurrentPlayer);
+            _playerArrow.transform.localPosition = new Vector2f(0, Tile.Size * 1.5f);
         }
 
         private void HandleInput()
@@ -149,6 +134,7 @@ namespace Assets.Scripts.Player
 
         private void ChangeMode()
         {
+            _playerArrow.SetParent(null);
             if (this.IsSeparated)
             {
                 _combinedPlayer = this.PlayerPrefab.Instantiate(this.CurrentPlayer.GetPosition2D());
@@ -161,15 +147,15 @@ namespace Assets.Scripts.Player
             }
             else
             {
-                _whitePlayer = this.CreatePlayer(_combinedPlayer.GetPosition2D() - Vector2f.UnitX.ToVector2() * Tile.Size, "WhitePlayer");
-                _blackPlayer = this.CreatePlayer(_combinedPlayer.GetPosition2D() + Vector2f.UnitX.ToVector2() * Tile.Size, "BlackPlayer");
+                _whitePlayer = this.CreatePlayer(_combinedPlayer.GetPosition2D() - Vector2f.UnitX * Tile.Size, "WhitePlayer");
+                _blackPlayer = this.CreatePlayer(_combinedPlayer.GetPosition2D() + Vector2f.UnitX * Tile.Size, "BlackPlayer");
                 _combinedPlayer.Destroy();
                 _combinedPlayer = null;
 
                 _whitePlayer.Get<SpriteRenderer>().color = new Color32(228, 228, 228, 255);
                 _blackPlayer.Get<SpriteRenderer>().color = new Color32(64, 64, 64, 255);
                 _currentGameDimension = GameDimension.Black;
-                this.RefreshPlayers();          
+                this.RefreshPlayers();
             }
 
             FlaiDebug.LogWithTypeTag<PlayerManager>("Player Mode Changed");
