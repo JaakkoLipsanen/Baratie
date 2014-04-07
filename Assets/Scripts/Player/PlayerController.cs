@@ -12,7 +12,7 @@ namespace Assets.Scripts.Player
         public bool ShowDebug = false;
         public bool IsControllingEnabled = true;
 
-        public float HorizontalSpeedDrag = 0.9f; // meh name
+        public float HorizontalSpeedDrag = 0.85f; // meh name
         public float AccelerationPower = 20;
         public float SpeedAirDrag = 0.5f;
         public float Speed = 10;
@@ -60,6 +60,8 @@ namespace Assets.Scripts.Player
 
         private void Control()
         {
+            rigidbody2D.velocity *= new Vector2f(this.HorizontalSpeedDrag, 1);
+
             float force = 0;
             if (this.IsControllingEnabled && FlaiInput.IsKeyPressed(KeyCode.A))
             {
@@ -74,6 +76,12 @@ namespace Assets.Scripts.Player
             force *= this.IsOnGround ? 1 : this.SpeedAirDrag;
             rigidbody2D.velocity += Vector2f.UnitX.ToVector2() * force * Time.deltaTime * AccelerationPower;
             rigidbody2D.velocity = Vector2f.ClampX(rigidbody2D.velocity, -10, 10);
+
+            if (force == 0 && this.IsOnGround)
+            {
+                rigidbody2D.velocity *= new Vector2f(0.7f, 1);
+            }
+
             if (this.CanJump && this.IsControllingEnabled)
             {
                 if (FlaiInput.IsNewKeyPress(KeyCode.Space))
@@ -82,8 +90,6 @@ namespace Assets.Scripts.Player
                     _isJumping = true;
                 }
             }
-
-            rigidbody2D.velocity *= new Vector2f(this.HorizontalSpeedDrag, 1);
         }
     }
 }

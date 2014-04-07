@@ -1,4 +1,4 @@
-﻿using Assets.Scripts.Objects;
+﻿using Assets.Scripts.Objects.Button;
 using Flai.Editor;
 using UnityEditor;
 using UnityEngine;

@@ -9,7 +9,8 @@ namespace Assets.Editor.Inspectors
     {
         public override void OnInspectorGUI()
         {
-            EditorGUILayout.TextField("DEFAULT INSPECTOR \\O/");
+            this.DrawDefaultInspector();
+            EditorGUILayout.LabelField("Drawn from DefaultInspector", EditorStyles.boldLabel);
         }
     }
 }
