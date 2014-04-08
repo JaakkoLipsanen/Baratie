@@ -1,12 +1,11 @@
-﻿using Assets.Game.Model.Tilemap;
+﻿using System;
+using Assets.Game.Model.Tilemap;
 using Assets.Game.View;
-using Assets.Scripts.General;
 using Flai;
 using Flai.Diagnostics;
-using System;
 using UnityEngine;
 
-namespace Assets.Scripts
+namespace Assets.Scripts.General
 {
     public class TilemapData : MonoBehaviour, IEquatable<TilemapData>
     {
