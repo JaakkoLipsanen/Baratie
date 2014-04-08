@@ -55,14 +55,25 @@ namespace Assets.Scripts.Objects.Pillar
             }
             else if (!this.IsOn && this.Scale > _defaultScale)
             {
-                this.Scale = FlaiMath.Max(this.Scale - _scaleVelocity * Time.deltaTime, _defaultScale);
+                this.Scale = FlaiMath.Max(this.Scale + _scaleVelocity * Time.deltaTime, _defaultScale);
             }
             else
             {
                 _scaleVelocity = 0;
+                return;
             }
 
-            _scaleVelocity += Time.deltaTime * 8;
+            int multiplier = (_scaleVelocity < 0 && this.IsOn ? 4 : 1);
+            if (_scaleVelocity > 0 && !this.IsOn)
+            {
+                multiplier = 4;
+            }
+
+            _scaleVelocity += Time.deltaTime * 8 * (this.IsOn ? 1 : -1) * multiplier;
+            if (_scaleVelocity < 0 && this.Scale < DefaultOffScale)
+            {
+                _scaleVelocity = 0;
+            }
         }
 
         public override void ExecuteOn(object context)

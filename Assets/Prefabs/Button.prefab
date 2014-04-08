@@ -31,7 +31,7 @@ GameObject:
   - 212: {fileID: 21200002}
   - 60: {fileID: 6000000}
   m_Layer: 9
-  m_Name: ButtonBase
+  m_Name: Base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -1,6 +1,7 @@
 ﻿using Flai;
 using System.Collections.Generic;
 using System.Linq;
+using Flai.Diagnostics;
 using UnityEngine;
 
 namespace Assets.Scripts.General
@@ -9,7 +10,7 @@ namespace Assets.Scripts.General
     public class OnTopMover : FlaiScript
     {
         private HashSet<GameObject> _gameObjectsOnTop = new HashSet<GameObject>();
-
+ 
         private float _previousScaleY;
         private float _previousPositionY;
 
@@ -18,6 +19,11 @@ namespace Assets.Scripts.General
         public bool HasAny
         {
             get { return _gameObjectsOnTop.Count > 0; }
+        }
+
+        public int Count
+        {
+            get { return _gameObjectsOnTop.Count; }
         }
 
         protected override void Awake()
@@ -38,7 +44,11 @@ namespace Assets.Scripts.General
             float changeInUnitsPosition = (this.Position2D.Y - _previousPositionY);
             float changeInUnits = changeInUnitsScale + changeInUnitsPosition;
 
+            Rect currentBounds = this.collider2D.GetBoundsHack().AsInflated(0.2f, 0.2f);
+            FlaiDebug.DrawRectangleOutlines(currentBounds);
             _gameObjectsOnTop.RemoveWhere(go => go == null);
+            _gameObjectsOnTop.RemoveWhere(go => !go.collider2D.GetBoundsHack().AsInflated(0.2f, 0.2f).Overlaps(currentBounds));
+
             foreach (GameObject other in _gameObjectsOnTop)
             {
                 other.SetPosition2D(other.GetPosition2D() + Vector2f.UnitY * changeInUnits);
