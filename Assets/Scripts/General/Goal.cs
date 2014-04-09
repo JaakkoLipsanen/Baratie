@@ -1,6 +1,6 @@
-﻿using Assets.Scripts.Menu;
-using Assets.Scripts.Player;
+﻿using Assets.Scripts.Player;
 using Flai;
+using Flai.Scene;
 using Flai.Tween;
 using UnityEngine;
 
@@ -10,20 +10,9 @@ namespace Assets.Scripts.General
 	{
         // todo todo: iTween & tweening!!!!
 	    private GameObject _exitingGameObject;
-	    private float _timeSinceExitStarted = 0f;
-
 	    private bool IsExiting
 	    {
 	        get { return _exitingGameObject != null; }
-	    }
-
-	    protected override void Update()
-	    {
-	        if (this.IsExiting)
-	        {
-	            _timeSinceExitStarted += Time.deltaTime;
-               // _exitingGameObject.SetScale2D();
-	        }
 	    }
 
 	    protected override void OnTriggerEnter2D(Collider2D other)

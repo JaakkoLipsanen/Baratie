@@ -1,0 +1,17 @@
+- "Yet another Darklight kopio". 2D peli, ehk room-based. Sulla on tyyppi (oikeet graffat, pikseli varmaan), joka voi jakaa ittens‰ kahteen (musta ja valkonen). 
+  Sit s‰ voit miss‰ kohassa vaan "sulattautua yhteen" kummalla tahansa tyypill‰. Sit kans 2 worldi‰ (musta ja valkonen), mut t‰‰ elementti ei oo niin oleellinen kuin se "singleplayer co-op".
+  Gameplay normi pl‰tt‰ri tyylist‰, hyppiminen
+   
+- Buttons
+- Pillars
+- Gravity Spot, Time Stop Spot (buttoneita v‰h‰n niinkun)
+- 2D portaaleita?
+- Portal pelist‰ tuttuja "alueita"/kalvoja/ovia jotka tuhoaa cubet. t‰ss‰ tapauksessa tuhoaa splittauksen
+- Moving Platformit
+- Avain/Ovi
+- Cubet (voi hypp‰‰ p‰‰lle, voi laittaa nappien p‰‰lle)
+
+- Zoomaus Idea
+   - "et silti room based, jostain voi kattoo koko huonetta joka voi siis olla vaikka kuinka valtava tahansa, mut sit jos noi eri tyypit l‰htee eri suuntiin niin ne pysyy aina samassa kuvaruudussa, eli se mappi zoomaa kauemmas"
+   - Eli mapit voi olla splitattu osiin
+ 

@@ -1,5 +1,5 @@
 ﻿using Flai;
-using Flai.Diagnostics;
+using Flai.Scene;
 using UnityEngine;
 
 namespace Assets.Scripts.Menu

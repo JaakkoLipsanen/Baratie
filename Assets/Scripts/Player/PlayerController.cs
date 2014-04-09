@@ -24,12 +24,14 @@ namespace Assets.Scripts.Player
             get
             {
                 BoxCollider2D collider = (BoxCollider2D)this.collider2D;
-                Vector2f center = this.Position2D - Vector2f.UnitY * (collider.size.y / 2f + 0.01f);
+                Vector2f center = this.Position2D + this.GroundDirection.ToUnitVector() * (collider.size.y / 2f + 0.01f);
                 Vector2f left = center - Vector2f.UnitX * collider.size / 2f;
                 Vector2f right = center + Vector2f.UnitX * collider.size / 2f;
 
                 const float MaxDistance = 0.01f;
-                return Physics2D.Raycast(center, Vector2f.Down, MaxDistance) || Physics2D.Raycast(left, Vector2f.Down, MaxDistance) || Physics2D.Raycast(right, Vector2f.Down, MaxDistance);
+
+                Vector2f direction = this.GroundDirection.ToUnitVector();
+                return Physics2D.Raycast(center, direction, MaxDistance) || Physics2D.Raycast(left, direction, MaxDistance) || Physics2D.Raycast(right, direction, MaxDistance);
 
                 //if (this.ShowDebug)
                 //{
@@ -41,6 +43,21 @@ namespace Assets.Scripts.Player
         public bool CanJump
         {
             get { return this.IsOnGround || (!_isJumping && _timeSinceNotInGround <= this.JumpTimeBias); }
+        }
+
+        public VerticalDirection GroundDirection
+        {
+            get
+            {
+                float gravity = Physics2D.gravity.y * this.rigidbody2D.gravityScale;
+                return (gravity < 0) ? VerticalDirection.Down : VerticalDirection.Up;
+            }
+        }
+
+        public HorizontalDirection FacingDirection
+        {
+            get { return this.Scale.x > 0 ? HorizontalDirection.Right : HorizontalDirection.Left; }
+            private set { this.Scale2D = Vector2f.Abs(this.Scale2D) * new Vector2f(value == HorizontalDirection.Right ? 1 : -1, 1); }
         }
 
         protected override void Update()
@@ -86,10 +103,20 @@ namespace Assets.Scripts.Player
             {
                 if (FlaiInput.IsNewKeyPress(KeyCode.Space))
                 {
-                    rigidbody2D.AddForce(Vector2f.Up * this.JumpForce);
+                    rigidbody2D.AddForce(-this.GroundDirection.ToUnitVector() * this.JumpForce);
                     _isJumping = true;
                 }
             }
+
+            // set facing direction
+            if (force != 0)
+            {
+                this.FacingDirection = (force > 0) ? HorizontalDirection.Right : HorizontalDirection.Left;
+            }
+
+            // flip upside down if anti gravity
+            int multiplier = (this.GroundDirection == VerticalDirection.Down) ? 1 : -1;
+            this.Scale2D = new Vector2f(this.Scale2D.X, FlaiMath.Abs(this.Scale2D.Y) * multiplier);
         }
     }
 }

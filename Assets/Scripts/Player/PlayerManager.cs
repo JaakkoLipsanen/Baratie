@@ -13,6 +13,9 @@ namespace Assets.Scripts.Player
         private float _shiftPressedDownTime = 0f;
         private bool _isShiftActionDone = false;
         private GameDimension _currentGameDimension;
+        private int _keyCount;
+
+        private GameDimension _previousSplitGameDimension = GameDimension.Black;
 
         private GameObject _combinedPlayer;
         private GameObject _whitePlayer;
@@ -72,21 +75,21 @@ namespace Assets.Scripts.Player
             get { return _currentGameDimension != GameDimension.Both; }
         }
 
+        public int KeyCount
+        {
+            get { return _keyCount; }
+        }
+
         protected override void Awake()
         {
             _combinedPlayer = this.CreatePlayer(this.Position2D, "CombinedPlayer");
-            _playerArrow = this.PlayerArrowPrefab.Instantiate(Vector2f.Up * 1);
+            _playerArrow = this.PlayerArrowPrefab.Instantiate();
+            _playerArrow.SetParent(this.GameObject);
         }
 
         protected override void Update()
         {
             this.HandleInput();
-        }
-
-        protected override void LateUpdate()
-        {
-            _playerArrow.SetParent(this.CurrentPlayer);
-            _playerArrow.transform.localPosition = new Vector2f(0, Tile.Size * 1.5f);
         }
 
         private void HandleInput()
@@ -128,6 +131,7 @@ namespace Assets.Scripts.Player
             }
 
             _currentGameDimension = _currentGameDimension.Opposite();
+            _previousSplitGameDimension = CurrentGameDimension;
             this.RefreshPlayers();
             FlaiDebug.LogWithTypeTag<PlayerManager>("Player Changed");
         }
@@ -147,14 +151,16 @@ namespace Assets.Scripts.Player
             }
             else
             {
-                _whitePlayer = this.CreatePlayer(_combinedPlayer.GetPosition2D() - Vector2f.UnitX * Tile.Size, "WhitePlayer");
-                _blackPlayer = this.CreatePlayer(_combinedPlayer.GetPosition2D() + Vector2f.UnitX * Tile.Size, "BlackPlayer");
+                Vector2f shiftAmount = Vector2f.UnitX * Tile.Size * 1.5f;
+                _whitePlayer = this.CreatePlayer(_combinedPlayer.GetPosition2D() + ((_previousSplitGameDimension == GameDimension.Black) ? shiftAmount : Vector2f.Zero), "WhitePlayer");
+                _blackPlayer = this.CreatePlayer(_combinedPlayer.GetPosition2D() + ((_previousSplitGameDimension == GameDimension.White) ? shiftAmount : Vector2f.Zero), "BlackPlayer");
                 _combinedPlayer.Destroy();
                 _combinedPlayer = null;
 
                 _whitePlayer.Get<SpriteRenderer>().color = new Color32(228, 228, 228, 255);
+                _whitePlayer.GetChild("Eye").Get<SpriteRenderer>().color = new ColorF(32, 32, 32);
                 _blackPlayer.Get<SpriteRenderer>().color = new Color32(64, 64, 64, 255);
-                _currentGameDimension = GameDimension.Black;
+                _currentGameDimension = _previousSplitGameDimension;
                 this.RefreshPlayers();
             }
 
@@ -185,6 +191,11 @@ namespace Assets.Scripts.Player
 
             this.CurrentPlayer.Get<PlayerController>().IsControllingEnabled = true;
             this.NonCurrentPlayer.Get<PlayerController>().IsControllingEnabled = false;
+        }
+
+        public void AddKey()
+        {
+            _keyCount++;
         }
     }
 }
