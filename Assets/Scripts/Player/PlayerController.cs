@@ -1,5 +1,6 @@
 ﻿using Flai;
 using Flai.Input;
+using Flai.Tween;
 using UnityEngine;
 
 namespace Assets.Scripts.Player
@@ -80,12 +81,12 @@ namespace Assets.Scripts.Player
             rigidbody2D.velocity *= new Vector2f(this.HorizontalSpeedDrag, 1);
 
             float force = 0;
-            if (this.IsControllingEnabled && FlaiInput.IsKeyPressed(KeyCode.A))
+            if (this.IsControllingEnabled && FlaiInput.IsButtonPressed("Move Left"))
             {
                 force -= this.Speed;
             }
 
-            if (this.IsControllingEnabled && FlaiInput.IsKeyPressed(KeyCode.D))
+            if (this.IsControllingEnabled && FlaiInput.IsButtonPressed("Move Right"))
             {
                 force += this.Speed;
             }
@@ -101,10 +102,12 @@ namespace Assets.Scripts.Player
 
             if (this.CanJump && this.IsControllingEnabled)
             {
-                if (FlaiInput.IsNewKeyPress(KeyCode.Space))
+                if (FlaiInput.IsNewButtonPress("Jump"))
                 {
                     rigidbody2D.AddForce(-this.GroundDirection.ToUnitVector() * this.JumpForce);
                     _isJumping = true;
+
+                 // Tween.ScaleX(this.GameObject, 0.5f, 0.25f).SetEase(TweenType.EaseInCubic).SetLoopPingPong().SetLoopCount(2);
                 }
             }
 

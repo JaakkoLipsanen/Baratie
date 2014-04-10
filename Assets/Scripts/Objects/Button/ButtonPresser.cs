@@ -4,7 +4,7 @@ using Assets.Scripts.General;
 using Flai;
 using UnityEngine;
 
-namespace Assets.Scripts.Objects.Button
+namespace Assets.Scripts.Objects
 {
     [RequireComponent(typeof(OnTopMover))]
     public class ButtonPresser : FlaiScript
@@ -37,6 +37,7 @@ namespace Assets.Scripts.Objects.Button
 
         protected override void Update()
         {
+            this.OnTopMover.AllowedDirection = (Physics2D.gravity.y < 0) ? Direction2D.Down : Direction2D.Up;
             this.UpdateButtonPressing();
         }
 

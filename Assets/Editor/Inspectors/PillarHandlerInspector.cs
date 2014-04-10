@@ -1,4 +1,4 @@
-﻿using Assets.Scripts.Objects.Pillar;
+﻿using Assets.Scripts.Objects;
 using Flai.Editor;
 using UnityEditor;
 using UnityEngine;

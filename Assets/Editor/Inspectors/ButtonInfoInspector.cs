@@ -1,5 +1,5 @@
 ﻿using Assets.Scripts.General;
-using Assets.Scripts.Objects.Button;
+using Assets.Scripts.Objects;
 using Flai.Editor;
 using UnityEditor;
 

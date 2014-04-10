@@ -94,7 +94,7 @@ namespace Assets.Scripts.Player
 
         private void HandleInput()
         {
-            if (FlaiInput.IsKeyPressed(KeyCode.LeftShift))
+            if (FlaiInput.IsButtonPressed("ChangeDimension"))
             {
                 _shiftPressedDownTime += Time.deltaTime;
                 if (!_isShiftActionDone && _shiftPressedDownTime >= 0.5f)
@@ -103,7 +103,7 @@ namespace Assets.Scripts.Player
                     _isShiftActionDone = true;
                 }
             }
-            else if (FlaiInput.IsNewKeyRelease(KeyCode.LeftShift))
+            else if (FlaiInput.IsNewButtonRelease("ChangeDimension"))
             {
                 _shiftPressedDownTime = 0;
                 if (_isShiftActionDone)

@@ -1,9 +1,8 @@
 ﻿using Flai;
 using System.Collections.Generic;
-using Flai.Diagnostics;
 using UnityEngine;
 
-namespace Assets.Scripts.Objects.GravitySwitch
+namespace Assets.Scripts.Objects
 {
     public class GravitySwitchArea : FlaiScript
     {
@@ -11,16 +10,15 @@ namespace Assets.Scripts.Objects.GravitySwitch
         private readonly HashSet<GameObject> _gameObjectsToRemove = new HashSet<GameObject>(); 
         protected override void OnTriggerEnter2D(Collider2D other)
         {
-            if (_gameObjectsInArea.Contains(other.gameObject) || _gameObjectsInArea.Count > 0)
+            if (_gameObjectsInArea.Contains(other.gameObject) || _gameObjectsInArea.Count > 0) // allow only one gameobject (these hashsets are useless now :P)
             {
                 return;
             }
 
-            Physics2D.gravity *= - 1; // Vector2f.Abs(Physics2D.gravity);
-            other.rigidbody2D.gravityScale *= -1; // -FlaiMath.Abs(other.rigidbody2D.gravityScale);
+            Physics2D.gravity *= - 1;
+            other.rigidbody2D.gravityScale *= -1;
 
             _gameObjectsInArea.Add(other.gameObject);
-            FlaiDebug.Log("E");
         }
 
         protected override void OnTriggerExit2D(Collider2D other)
@@ -30,11 +28,10 @@ namespace Assets.Scripts.Objects.GravitySwitch
                 return;
             }
 
-            Physics2D.gravity *= -1; // -Vector2f.Abs(Physics2D.gravity);
-            other.rigidbody2D.gravityScale *= -1; // FlaiMath.Abs(other.rigidbody2D.gravityScale);
+            Physics2D.gravity *= -1;
+            other.rigidbody2D.gravityScale *= -1;
 
             _gameObjectsInArea.Remove(other.gameObject);
-            FlaiDebug.Log("Ex");
         }
 
         protected override void LateUpdate()
@@ -46,7 +43,6 @@ namespace Assets.Scripts.Objects.GravitySwitch
                 {
                     _gameObjectsToRemove.Add(go);
                     Physics2D.gravity *= -1;
-                    FlaiDebug.Log("LU");
                 }
             }
 

@@ -2,7 +2,7 @@
 using Flai;
 using Flai.Diagnostics;
 
-namespace Assets.Scripts.Objects.Button
+namespace Assets.Scripts.Objects
 {
     public class ButtonInfo : FlaiScript
     {

@@ -4,12 +4,17 @@
    
 - Buttons
 - Pillars
-- Gravity Spot, Time Stop Spot (buttoneita vähän niinkun)
-- 2D portaaleita?
-- Portal pelistä tuttuja "alueita"/kalvoja/ovia jotka tuhoaa cubet. tässä tapauksessa tuhoaa splittauksen
-- Moving Platformit
-- Avain/Ovi
+- Gravity Spot
 - Cubet (voi hyppää päälle, voi laittaa nappien päälle)
+
+- Avain -> Goal/Ovi
+- Portal 2:sta tuttu "Excursion Funnel"/gravity spike. voi viedä pelaajia tai crateja. voi laittaa nappiin kiinni et aktivioituu kun nappi painettu
+
+- Time Stop Spot (buttoneita vähän niinkun)
+- Moving Platformit
+- Portal pelistä tuttuja "alueita"/kalvoja/ovia jotka tuhoaa cubet. tässä tapauksessa tuhoaa splittauksen
+- 2D portaaleita?
+- Spiket
 
 - Zoomaus Idea
    - "et silti room based, jostain voi kattoo koko huonetta joka voi siis olla vaikka kuinka valtava tahansa, mut sit jos noi eri tyypit lähtee eri suuntiin niin ne pysyy aina samassa kuvaruudussa, eli se mappi zoomaa kauemmas"

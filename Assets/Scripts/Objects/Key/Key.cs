@@ -2,7 +2,7 @@
 using Flai;
 using UnityEngine;
 
-namespace Assets.Scripts.Objects.Key
+namespace Assets.Scripts.Objects
 {
 	public class Key : FlaiScript
 	{

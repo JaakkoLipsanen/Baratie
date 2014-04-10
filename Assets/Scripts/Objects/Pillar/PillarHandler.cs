@@ -5,7 +5,7 @@ using Flai;
 using Flai.Diagnostics;
 using UnityEngine;
 
-namespace Assets.Scripts.Objects.Pillar
+namespace Assets.Scripts.Objects
 {
     public class PillarHandler : Response
     {
