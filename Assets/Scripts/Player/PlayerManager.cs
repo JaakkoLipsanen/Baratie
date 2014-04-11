@@ -16,8 +16,6 @@ namespace Assets.Scripts.Player
         private float _shiftPressedDownTime = 0f;
         private bool _isShiftActionDone = false;
         private GameDimension _currentGameDimension;
-        private int _keyCount;
-
         private GameDimension _previousSplitGameDimension = GameDimension.Black;
 
         private PlayerInfo _combinedPlayer;
@@ -78,10 +76,7 @@ namespace Assets.Scripts.Player
             get { return _currentGameDimension != GameDimension.Both; }
         }
 
-        public int KeyCount
-        {
-            get { return _keyCount; }
-        }
+        public int KeyCount { get; private set; }
 
         #endregion
 
@@ -94,7 +89,7 @@ namespace Assets.Scripts.Player
 
         public void AddKey()
         {
-            _keyCount++;
+            this.KeyCount++;
         }
 
         protected override void Update()
