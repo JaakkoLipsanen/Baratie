@@ -1,7 +1,7 @@
-﻿using Flai.Scripts;
-// ReSharper disable ConvertConditionalTernaryToNullCoalescing
+﻿// ReSharper disable ConvertConditionalTernaryToNullCoalescing
 using Assets.Scripts.General;
 using Flai;
+using Flai.Scripts;
 using UnityEngine;
 
 namespace Assets.Scripts.Objects
@@ -58,6 +58,8 @@ namespace Assets.Scripts.Objects
             {
                 this.LocalPosition2D = _initialPosition - Vector2f.UnitY * _positionOffset;
             }
+
+            _onTopMover.ForceUpdate();
         }
     }
 }

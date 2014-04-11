@@ -1,13 +1,12 @@
 ﻿using Flai;
 using Flai.Input;
-using Flai.Tween;
 using UnityEngine;
 
 namespace Assets.Scripts.Player
 {
     public class PlayerController : FlaiScript
     {
-        private float _timeSinceNotInGround = 0f;
+        private float _timeSinceNotInGround = float.MaxValue / 2f; // really big value at the start so that it is larger than JumpTimeBias
         private bool _isJumping = false;
 
         public bool ShowDebug = false;
@@ -33,17 +32,12 @@ namespace Assets.Scripts.Player
 
                 Vector2f direction = this.GroundDirection.ToUnitVector();
                 return Physics2D.Raycast(center, direction, MaxDistance) || Physics2D.Raycast(left, direction, MaxDistance) || Physics2D.Raycast(right, direction, MaxDistance);
-
-                //if (this.ShowDebug)
-                //{
-                //    FlaiDebug.DrawLine(center, raycastHit.point, BaratieConstants.DebugColor);
-                //}
             }
         }
 
         public bool CanJump
         {
-            get { return this.IsOnGround || (!_isJumping && _timeSinceNotInGround <= this.JumpTimeBias); }
+            get { return !_isJumping && (this.IsOnGround || _timeSinceNotInGround <= this.JumpTimeBias); }
         }
 
         public VerticalDirection GroundDirection
@@ -58,7 +52,7 @@ namespace Assets.Scripts.Player
         public HorizontalDirection FacingDirection
         {
             get { return this.Scale.x > 0 ? HorizontalDirection.Right : HorizontalDirection.Left; }
-            private set { this.Scale2D = Vector2f.Abs(this.Scale2D) * new Vector2f(value == HorizontalDirection.Right ? 1 : -1, 1); }
+            set { this.Scale2D = Vector2f.Abs(this.Scale2D) * new Vector2f(value == HorizontalDirection.Right ? 1 : -1, 1); }
         }
 
         protected override void Update()
@@ -104,10 +98,11 @@ namespace Assets.Scripts.Player
             {
                 if (FlaiInput.IsNewButtonPress("Jump"))
                 {
+                    this.Position2D -= this.GroundDirection.ToUnitVector() * 0.01f;
                     rigidbody2D.AddForce(-this.GroundDirection.ToUnitVector() * this.JumpForce);
                     _isJumping = true;
 
-                 // Tween.ScaleX(this.GameObject, 0.5f, 0.25f).SetEase(TweenType.EaseInCubic).SetLoopPingPong().SetLoopCount(2);
+                    // Tween.ScaleX(this.GameObject, 0.5f, 0.25f).SetEase(TweenType.EaseInCubic).SetLoopPingPong().SetLoopCount(2);
                 }
             }
 

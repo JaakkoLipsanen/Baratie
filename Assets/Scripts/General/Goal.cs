@@ -23,9 +23,10 @@ namespace Assets.Scripts.General
 	    protected override void Awake()
         {
             _keys = Scene.FindAllOfType<Key>();
-	        if (_keys == null)
+	        if (_keys == null|| _keys.Length == 0)
 	        {
                 _isAllKeysPicked = true;
+                this.Parent.GetChild("Particle Emitter").particleSystem.Simulate(2f);
                 this.Parent.GetChild("Particle Emitter").particleSystem.Play();
 	        }
 	    }

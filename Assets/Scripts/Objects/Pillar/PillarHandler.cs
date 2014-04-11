@@ -1,5 +1,5 @@
-﻿// ReSharper disable ConvertConditionalTernaryToNullCoalescing
-
+﻿using Flai.Scripts;
+// ReSharper disable ConvertConditionalTernaryToNullCoalescing
 using Assets.Scripts.General;
 using Flai;
 using Flai.Diagnostics;
@@ -80,6 +80,8 @@ namespace Assets.Scripts.Objects
                 _scaleVelocity = 0;
                 this.Scale = this.TargetScale;
             }
+
+         // this.Get<OnTopMover>().ForceUpdate(); // first of all, the OnTopMover is in a child. second of all, this isn't probably needesd
         }
 
         public override void ExecuteOn(object context)

@@ -103,7 +103,7 @@ MonoBehaviour:
   AccelerationPower: 20
   SpeedAirDrag: .5
   Speed: 10
-  JumpForce: 750
+  JumpForce: 800
   JumpTimeBias: .100000001
 --- !u!114 &11400002
 MonoBehaviour:

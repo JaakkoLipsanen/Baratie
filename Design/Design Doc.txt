@@ -6,8 +6,8 @@
 - Pillars
 - Gravity Spot
 - Cubet (voi hyppää päälle, voi laittaa nappien päälle)
+- Avain -> Goal(/Ovi????)
 
-- Avain -> Goal/Ovi
 - Portal 2:sta tuttu "Excursion Funnel"/gravity spike. voi viedä pelaajia tai crateja. voi laittaa nappiin kiinni et aktivioituu kun nappi painettu
 
 - Time Stop Spot (buttoneita vähän niinkun)
@@ -22,21 +22,24 @@
  
  
  ---- TODO BUGIT ----
- - Button alue liian suuri
- - Rotated button/pillar alue kusee (GetBoundsHack)
- - Avain -> Goal. täl hetkellä goalin particlet spawnaa heti (prewarmed). tee niin et spawnaa smoothisti
- - Epäaktiivinen player nostaa craten inputista
- - Leijuva crate bugi
- - Kun yhistyy/splittaa, niin aina tyypit kattoo oikeelle. tee niin et jos se edellinen katto vasemmalle, nini kato säkin
- - Nappula jää pohjaan joskus tai telee 0,0
+ - X Button alue liian suuri 
+ - X Rotated button/pillar alue kusee (GetBoundsHack)
+ - X Avain -> Goal. täl hetkellä goalin particlet spawnaa heti (prewarmed). tee niin et spawnaa smoothisti
+ - X Epäaktiivinen player nostaa craten inputista
+ - X Leijuva crate bugia
+ - X Kun yhistyy/splittaa, niin aina tyypit kattoo oikeelle. tee niin et jos se edellinen katto vasemmalle, nini kato säkin
+ - X(?) Nappula jää pohjaan joskus tai telee 0,0
   
-  
- - Kaikkien render order vähän kusee (player arrow, player silmä jne)
- - Korjaa Scene Fade (= fading out -> next fade allowed)
+ - X Kaikkien render order vähän kusee (player arrow, player silmä jne)
+ - X(korjasin niin et heittää warningin exceptionin sijaan, en kuten selitin täs) Korjaa Scene Fade (= fading out -> next fade allowed)
+ - X Player tippuu -> Splittaa, velocity starttaa nolla
+ - X Joskus kun splittaa ilmassa, niin pystyy hypätä uudestaan
  - Jakautumis bugi (ei voi spawnaa seinän läpi/seinään tms)
- - Player tippuu -> Splittaa, velocity starttaa nolla
- - Joskus kun splittaa ilmassa, niin pystyy hypätä uudestaan
  
  - Kun tyyppi kuolee (esim pillar tippuu päälle tai myöhemmin piikit jne) -> yhistys/restart
  - Tile hommat
  - (Tallenna .tmx johonkni muuhun kansioon)
+ 
+ 
+ - Yhessä, painaa shiftiä pohjaan -> split suoraan vaik ei release
+ - X Splitted: Nosta mustallaa toisella crate. Vaiha toiseen ja koita itse pickata se crate (ei onnistu). Vaiha bäkkiin ja kaikki kusee !!!!!

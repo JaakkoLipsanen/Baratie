@@ -9,6 +9,11 @@ namespace Assets.Scripts.Objects
         private GameObject _picker;
         public bool IsPicked
         {
+            get { return _picker != null; }
+        }
+
+        public GameObject Picker
+        {
             get { return _picker; }
         }
 
@@ -51,12 +56,18 @@ namespace Assets.Scripts.Objects
 
             if (_picker.Has<Rigidbody2D>())
             {
-                this.rigidbody2D.velocity = Vector2f.UnitY*_picker.rigidbody2D.velocity;
+                this.rigidbody2D.velocity = Vector2f.UnitY * _picker.rigidbody2D.velocity;
             }
 
             _picker = null;
             this.rigidbody2D.isKinematic = false;
             FlaiDebug.LogWithTypeTag<Crate>("Crate Dropped");
+        }
+
+        public void ChangeOwner(GameObject newOwner)
+        {
+            _picker = newOwner;
+            FlaiDebug.LogWithTypeTag<Crate>("Crate owner changed");
         }
     }
 }
