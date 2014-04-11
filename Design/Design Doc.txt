@@ -13,6 +13,7 @@
 - Toggle Button: mik‰h‰n ois paras tapa. 
   - Tapa 1: v‰h‰n niinkun 1x2 tile, jossa vasen ja oikea puoli on keskell‰ pieni valkonen nappi joka togglea toisen kun menee.
   - Tapa 2: "mekaaninen", kulmassa oleva toggle nappi. mieti jotai real life. vaikka valo-katkasija
+  - Tapa 3: normi button, mutta mik‰ muuttaa v‰ri‰ aina kun sen p‰‰lle hypp‰‰. Esim musta/valko tms
 
 - Time Stop Spot (buttoneita v‰h‰n niinkun)
 - Moving Platformit
