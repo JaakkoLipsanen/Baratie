@@ -64,7 +64,7 @@ namespace Assets.Scripts.Player
 
         private void TryPickUpCrate()
         {
-            RectangleF target = this.collider2D.GetBoundsHack().AsInflated(0, Tile.Size * 0.25f);
+            RectangleF target = this.collider2D.GetBoundsHack().AsInflated(0.1f, Tile.Size * 0.4f);
             target.Center += _controller.FacingDirection.ToUnitVector() * target.Width;
             var crates = Scene.FindAllOfType<Crate>().ToSet();
             var crate = crates.FirstOrDefault(c => c.collider2D.GetBoundsHack().Intersects(target));
@@ -95,6 +95,15 @@ namespace Assets.Scripts.Player
 
             other._currentlyPickingCrate = _currentlyPickingCrate;
             _currentlyPickingCrate = null;
+        }
+
+        public void Drop()
+        {
+            if (_currentlyPickingCrate != null)
+            {
+                _currentlyPickingCrate.Drop();
+                _currentlyPickingCrate = null;
+            }
         }
     }
 }

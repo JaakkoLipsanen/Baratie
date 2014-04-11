@@ -1,4 +1,5 @@
 ﻿using Assets.Game.Model;
+using Assets.Misc;
 using Assets.Scripts.General;
 using Flai;
 using Flai.Diagnostics;
@@ -16,7 +17,6 @@ namespace Assets.Scripts.Player
         private float _shiftPressedDownTime = 0f;
         private bool _isShiftActionDone = false;
         private GameDimension _currentGameDimension;
-        private GameDimension _previousSplitGameDimension = GameDimension.Black;
 
         private PlayerInfo _combinedPlayer;
         private PlayerInfo _whitePlayer;
@@ -104,7 +104,7 @@ namespace Assets.Scripts.Player
             if (FlaiInput.IsButtonPressed("ChangeDimension"))
             {
                 _shiftPressedDownTime += Time.deltaTime;
-                if ((!_isShiftActionDone && (_shiftPressedDownTime >= 0.5f || !this.IsSeparated))) // if players are NOT separated, then player will split as soon as shift is pressed down
+                if ((!_isShiftActionDone && (_shiftPressedDownTime >= 0.35f || !this.IsSeparated))) // if players are NOT separated, then player will split as soon as shift is pressed down
                 {
                     this.ChangeMode();
                     _isShiftActionDone = true;
@@ -139,7 +139,6 @@ namespace Assets.Scripts.Player
             Ensure.True(this.IsSeparated);
 
             _currentGameDimension = _currentGameDimension.Opposite();
-            _previousSplitGameDimension = CurrentGameDimension;
             this.RefreshPlayers();
             FlaiDebug.LogWithTypeTag<PlayerManager>("Player Changed");
         }
@@ -177,6 +176,11 @@ namespace Assets.Scripts.Player
                 this.CurrentPlayer.CratePicker.ChangeCrateOwner(_combinedPlayer.CratePicker);
             }
 
+            if (this.NonCurrentPlayer.CratePicker.IsPicking)
+            {
+                this.NonCurrentPlayer.CratePicker.Drop();
+            }
+
             _currentGameDimension = GameDimension.Both;
             Scene.DestroyGameObject(ref _whitePlayer);
             Scene.DestroyGameObject(ref _blackPlayer);
@@ -186,9 +190,10 @@ namespace Assets.Scripts.Player
         {
             Ensure.True(!this.IsSeparated);
 
-            _currentGameDimension = _previousSplitGameDimension;
-            _whitePlayer = this.CreateSplittedPlayer(GameDimension.White, "White Player");
-            _blackPlayer = this.CreateSplittedPlayer(GameDimension.Black, "Black Player");
+            _currentGameDimension = GameDimension.Black; // always black after splitted: looks good. think more about this later
+            HorizontalDirection currentDirection = _combinedPlayer.Controller.FacingDirection;
+            _blackPlayer = this.CreateSplittedPlayer(GameDimension.Black, "Black Player", currentDirection);
+            _whitePlayer = this.CreateSplittedPlayer(GameDimension.White, "White Player", currentDirection.Opposite());
 
             // if the combined player is holding a crate, then set the new current player to hold the same crate
             if (_combinedPlayer.CratePicker.IsPicking)
@@ -196,7 +201,6 @@ namespace Assets.Scripts.Player
                 _combinedPlayer.CratePicker.ChangeCrateOwner(this.CurrentPlayer.CratePicker);
             }
 
-            this.CurrentPlayer.Controller.FacingDirection = _combinedPlayer.Controller.FacingDirection;
             this.CurrentPlayer.IsInForeground = true;
             this.NonCurrentPlayer.IsInForeground = false;
 
@@ -218,12 +222,12 @@ namespace Assets.Scripts.Player
             return player.Get<PlayerInfo>();
         }
 
-        private PlayerInfo CreateSplittedPlayer(GameDimension gameDimension, string name)
+        private PlayerInfo CreateSplittedPlayer(GameDimension gameDimension, string name, HorizontalDirection facingDirection)
         {
             Vector2f finalPosition = _combinedPlayer.Position2D;
             if (_currentGameDimension != gameDimension)
             {
-                Vector2f shiftAmount = Vector2f.UnitX * Tile.Size * 1.5f;
+                Vector2f shiftAmount = this.FindSplitShiftAmount();
                 finalPosition += shiftAmount;
             }
 
@@ -240,7 +244,38 @@ namespace Assets.Scripts.Player
             }
 
             player.Velocity = _combinedPlayer.Velocity;
+            player.Controller.FacingDirection = facingDirection;
             return player;
+        }
+
+        private Vector2f FindSplitShiftAmount()
+        {
+            Vector2f defaultSplitAmount = Vector2f.UnitX * Tile.Size * 1.5f;
+            if (this.CurrentPlayer.Controller.FacingDirection == HorizontalDirection.Right)
+            {
+                FlaiDebug.Log("change");
+                defaultSplitAmount *= -1; // split amount is to left nows
+            }
+
+            RectangleF playerArea = this.CurrentPlayer.collider2D.GetBoundsHack().AsInflated(0, -0.01f);
+            FlaiDebug.DrawRectangleOutlines(playerArea, ColorF.Blue, 1.5f);
+            for (float fractionX = 1f; fractionX >= 0; fractionX -= 0.05f)
+            {
+                for (float yOffset = 0; yOffset <= 1f; yOffset += 0.1f)
+                {
+                    RectangleF newArea = playerArea;
+                    newArea.Offset(defaultSplitAmount * fractionX + Vector2f.UnitY * yOffset);
+
+                    FlaiDebug.DrawRectangleOutlines(newArea, ColorF.Green * (0.15f + (0.85f) * fractionX), 5.5f);
+                    if (Physics2D.OverlapArea(newArea.TopLeft, newArea.BottomRight, BaratieConstants.IgnorePlayerLayerMask) == null)
+                    {
+                        return defaultSplitAmount*fractionX + Vector2f.UnitY*yOffset;
+                    }
+                }
+               
+            }
+
+            return Vector2f.Zero;
         }
 
         #endregion

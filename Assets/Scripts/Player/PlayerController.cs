@@ -1,4 +1,5 @@
-﻿using Flai;
+﻿using Assets.Misc;
+using Flai;
 using Flai.Input;
 using UnityEngine;
 
@@ -29,9 +30,10 @@ namespace Assets.Scripts.Player
                 Vector2f right = center + Vector2f.UnitX * collider.size / 2f;
 
                 const float MaxDistance = 0.01f;
-
                 Vector2f direction = this.GroundDirection.ToUnitVector();
-                return Physics2D.Raycast(center, direction, MaxDistance) || Physics2D.Raycast(left, direction, MaxDistance) || Physics2D.Raycast(right, direction, MaxDistance);
+                return Physics2D.Raycast(center, direction, MaxDistance, BaratieConstants.IgnorePlayerLayerMask) || 
+                    Physics2D.Raycast(left, direction, MaxDistance, BaratieConstants.IgnorePlayerLayerMask) || 
+                    Physics2D.Raycast(right, direction, MaxDistance, BaratieConstants.IgnorePlayerLayerMask);
             }
         }
 

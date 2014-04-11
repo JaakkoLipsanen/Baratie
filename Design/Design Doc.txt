@@ -9,12 +9,18 @@
 - Avain -> Goal(/Ovi????)
 
 - Portal 2:sta tuttu "Excursion Funnel"/gravity spike. voi viedä pelaajia tai crateja. voi laittaa nappiin kiinni et aktivioituu kun nappi painettu
+- Multi Button Response
+- Toggle Button: mikähän ois paras tapa. 
+  - Tapa 1: vähän niinkun 1x2 tile, jossa vasen ja oikea puoli on keskellä pieni valkonen nappi joka togglea toisen kun menee.
+  - Tapa 2: "mekaaninen", kulmassa oleva toggle nappi. mieti jotai real life. vaikka valo-katkasija
 
 - Time Stop Spot (buttoneita vähän niinkun)
 - Moving Platformit
 - Portal pelistä tuttuja "alueita"/kalvoja/ovia jotka tuhoaa cubet. tässä tapauksessa tuhoaa splittauksen
 - 2D portaaleita?
 - Spiket
+
+- Pillarit voi painaa nappeja.
 
 - Zoomaus Idea
    - "et silti room based, jostain voi kattoo koko huonetta joka voi siis olla vaikka kuinka valtava tahansa, mut sit jos noi eri tyypit lähtee eri suuntiin niin ne pysyy aina samassa kuvaruudussa, eli se mappi zoomaa kauemmas"
@@ -34,12 +40,13 @@
  - X(korjasin niin et heittää warningin exceptionin sijaan, en kuten selitin täs) Korjaa Scene Fade (= fading out -> next fade allowed)
  - X Player tippuu -> Splittaa, velocity starttaa nolla
  - X Joskus kun splittaa ilmassa, niin pystyy hypätä uudestaan
- - Jakautumis bugi (ei voi spawnaa seinän läpi/seinään tms)
+ - X Jakautumis bugi (ei voi spawnaa seinän läpi/seinään tms)
  
- - Kun tyyppi kuolee (esim pillar tippuu päälle tai myöhemmin piikit jne) -> yhistys/restart
- - Tile hommat
- - (Tallenna .tmx johonkni muuhun kansioon)
- 
- 
- - Yhessä, painaa shiftiä pohjaan -> split suoraan vaik ei release
+ - X Yhessä, painaa shiftiä pohjaan -> split suoraan vaik ei release
  - X Splitted: Nosta mustallaa toisella crate. Vaiha toiseen ja koita itse pickata se crate (ei onnistu). Vaiha bäkkiin ja kaikki kusee !!!!!
+ 
+ - Crate ei seinän läpi
+ - Tile hommat
+ 
+ - (Tallenna .tmx johonkni muuhun kansioon)
+ - Kun tyyppi kuolee (esim pillar tippuu päälle tai myöhemmin piikit jne) -> yhistys/restart

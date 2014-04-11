@@ -1,9 +1,9 @@
-﻿using UnityEngine;
+﻿using Flai;
 
 namespace Assets.Misc
 {
     public static class BaratieConstants
     {
-        public static readonly Color DebugColor = Color.red;
+        public static readonly LayerMaskF IgnorePlayerLayerMask = LayerMaskF.FromName("Player").Inverse;
     }
 }
