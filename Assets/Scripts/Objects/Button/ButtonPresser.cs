@@ -33,11 +33,11 @@ namespace Assets.Scripts.Objects
         {
             _height = this.Get<BoxCollider2D>().size.y * this.Scale2D.Y * Tile.Size;
             _initialPosition = this.LocalPosition2D;
+            this.OnTopMover.AllowedDirection = DirectionHelper.FromRotation(this.Rotation2D).Opposite();
         }
 
         protected override void Update()
         {
-            this.OnTopMover.AllowedDirection = (Physics2D.gravity.y < 0) ? Direction2D.Down : Direction2D.Up;
             this.UpdateButtonPressing();
         }
 

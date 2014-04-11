@@ -35,8 +35,8 @@ namespace Assets.Scripts.Player
 
         private void UpdateCratePosition()
         {
-            const float HorizontalDistance = Tile.Size * 1.5f;
-            const float VerticalDistance = Tile.Size * 0.5f;
+            const float HorizontalDistance = Tile.Size*1.5f;
+            const float VerticalDistance = Tile.Size * 1.65f;
 
             _currentlyPickingCrate.SetPosition2D(this.Position2D + _controller.FacingDirection.ToUnitVector() * HorizontalDistance - _controller.GroundDirection.ToUnitVector() * VerticalDistance);
         }

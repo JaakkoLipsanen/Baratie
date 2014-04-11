@@ -24,6 +24,14 @@ namespace Assets.Scripts.Menu
             {
                 SceneFader.Fade(SceneDescription.FromIndex(Application.loadedLevel), Fade.Create(0.15f), Fade.Create(0.15f));
             }
+            else if (FlaiInput.IsNewKeyPress(KeyCode.PageDown))
+            {
+                SceneFader.Fade(SceneDescription.FromIndex(Application.loadedLevel - 1), Fade.Create(0.15f), Fade.Create(0.15f));
+            }
+            else if (FlaiInput.IsNewKeyPress(KeyCode.PageUp))
+            {
+                SceneFader.Fade(SceneDescription.FromIndex((Application.loadedLevel == Application.levelCount - 1) ? 0 : Application.loadedLevel + 1), Fade.Create(0.15f), Fade.Create(0.15f));
+            }
         }
     }
 }

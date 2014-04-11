@@ -73,6 +73,12 @@ namespace Assets.Scripts.Objects
             if (_scaleVelocity < 0 && this.Scale < DefaultOffScale)
             {
                 _scaleVelocity = 0;
+                this.Scale = DefaultOffScale;
+            }
+            else if (_scaleVelocity > 0 && this.Scale > this.TargetScale)
+            {
+                _scaleVelocity = 0;
+                this.Scale = this.TargetScale;
             }
         }
 

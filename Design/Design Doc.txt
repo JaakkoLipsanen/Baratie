@@ -20,3 +20,23 @@
    - "et silti room based, jostain voi kattoo koko huonetta joka voi siis olla vaikka kuinka valtava tahansa, mut sit jos noi eri tyypit lähtee eri suuntiin niin ne pysyy aina samassa kuvaruudussa, eli se mappi zoomaa kauemmas"
    - Eli mapit voi olla splitattu osiin
  
+ 
+ ---- TODO BUGIT ----
+ - Button alue liian suuri
+ - Rotated button/pillar alue kusee (GetBoundsHack)
+ - Avain -> Goal. täl hetkellä goalin particlet spawnaa heti (prewarmed). tee niin et spawnaa smoothisti
+ - Epäaktiivinen player nostaa craten inputista
+ - Leijuva crate bugi
+ - Kun yhistyy/splittaa, niin aina tyypit kattoo oikeelle. tee niin et jos se edellinen katto vasemmalle, nini kato säkin
+ - Nappula jää pohjaan joskus tai telee 0,0
+  
+  
+ - Kaikkien render order vähän kusee (player arrow, player silmä jne)
+ - Korjaa Scene Fade (= fading out -> next fade allowed)
+ - Jakautumis bugi (ei voi spawnaa seinän läpi/seinään tms)
+ - Player tippuu -> Splittaa, velocity starttaa nolla
+ - Joskus kun splittaa ilmassa, niin pystyy hypätä uudestaan
+ 
+ - Kun tyyppi kuolee (esim pillar tippuu päälle tai myöhemmin piikit jne) -> yhistys/restart
+ - Tile hommat
+ - (Tallenna .tmx johonkni muuhun kansioon)
