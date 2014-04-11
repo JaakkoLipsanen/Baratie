@@ -1,14 +1,18 @@
 ﻿using Flai;
-using Flai.Diagnostics;
 using Flai.Input;
 using Flai.Scene;
 using UnityEngine;
 
 namespace Assets.Scripts.Menu
 {
-    public class CheckForExitToMenu : FlaiScript
+    public class GameStateManager : FlaiScript
     {
         public KeyCode ExitKey = KeyCode.Escape;
+
+        protected override void Awake()
+        {
+            Physics2D.gravity = -Vector2f.Abs(Physics2D.gravity);
+        }
 
         protected override void Update()
         {

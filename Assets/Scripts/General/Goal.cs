@@ -1,4 +1,6 @@
-﻿using Assets.Scripts.Player;
+﻿using System.Linq;
+using Assets.Scripts.Objects;
+using Assets.Scripts.Player;
 using Flai;
 using Flai.Scene;
 using Flai.Tween;
@@ -10,14 +12,36 @@ namespace Assets.Scripts.General
 	{
         // todo todo: iTween & tweening!!!!
 	    private GameObject _exitingGameObject;
+	    private Key[] _keys;
+	    private bool _isAllKeysPicked = false;
+
 	    private bool IsExiting
 	    {
 	        get { return _exitingGameObject != null; }
 	    }
 
+	    protected override void Awake()
+        {
+            _keys = Scene.FindAllOfType<Key>();
+	        if (_keys == null)
+	        {
+                _isAllKeysPicked = true;
+                this.Parent.GetChild("Particle Emitter").particleSystem.Play();
+	        }
+	    }
+
+	    protected override void Update()
+	    {
+	        if (_keys.All(key => key == null) && !_isAllKeysPicked)
+	        {
+	            this.Parent.GetChild("Particle Emitter").particleSystem.Play();
+	            _isAllKeysPicked = true;
+	        }
+	    }
+
 	    protected override void OnTriggerEnter2D(Collider2D other)
 	    {
-	        if (this.IsExiting)
+	        if (this.IsExiting || !_isAllKeysPicked)
 	        {
 	            return;
 	        }
