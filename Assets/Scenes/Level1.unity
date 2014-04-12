@@ -2103,7 +2103,7 @@ ParticleSystem:
   speed: 1
   randomSeed: 0
   looping: 1
-  prewarm: 1
+  prewarm: 0
   playOnAwake: 0
   moveWithTransform: 1
   InitialModule:
@@ -11451,6 +11451,7 @@ MonoBehaviour:
   m_Script: {fileID: -1170007011, guid: a379e97a623291b4790dceb2186a96cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AllowedDirection: 2
   DrawDebug: 1
 --- !u!1 &681429937
 GameObject:
@@ -12577,7 +12578,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 739911657}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0795e2545f796247990afd27a985805, type: 3}
+  m_Script: {fileID: 11500000, guid: 21e77f9232a5add4ab853ef3ebd0eae8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ExitKey: 27
@@ -26645,6 +26646,7 @@ MonoBehaviour:
   m_Script: {fileID: -1170007011, guid: a379e97a623291b4790dceb2186a96cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AllowedDirection: 2
   DrawDebug: 1
 --- !u!1 &1608416298
 GameObject:
@@ -31140,6 +31142,7 @@ MonoBehaviour:
   m_Script: {fileID: -1170007011, guid: a379e97a623291b4790dceb2186a96cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AllowedDirection: 2
   DrawDebug: 1
 --- !u!1 &1888807820
 GameObject:
@@ -31686,6 +31689,7 @@ MonoBehaviour:
   m_Script: {fileID: -1170007011, guid: a379e97a623291b4790dceb2186a96cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AllowedDirection: 2
   DrawDebug: 1
 --- !u!4 &1953571457
 Transform:

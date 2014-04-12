@@ -165,6 +165,7 @@ MonoBehaviour:
   m_Script: {fileID: -1170007011, guid: a379e97a623291b4790dceb2186a96cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AllowedDirection: 2
   DrawDebug: 1
 --- !u!212 &21200000
 SpriteRenderer:

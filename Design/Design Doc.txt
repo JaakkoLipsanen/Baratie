@@ -26,6 +26,17 @@
 - Zoomaus Idea
    - "et silti room based, jostain voi kattoo koko huonetta joka voi siis olla vaikka kuinka valtava tahansa, mut sit jos noi eri tyypit lähtee eri suuntiin niin ne pysyy aina samassa kuvaruudussa, eli se mappi zoomaa kauemmas"
    - Eli mapit voi olla splitattu osiin
+   
+ 
+ - Gravity Switch Idea
+   - Jos on gravity switchin päällä, niin oma gravity ei voi muuttua toisen gravity switchin voimasta
+   
+
+- Multi Response Buttoneilla voi esim saada QUBE:n sellasii juttui, esim keltanen kolmipaska.
+
+- "Liukualusta"/Likuhihna
+- Kanuuna joka ampuu kuteja joitten päälle voi hypätä. time stopin kanssa voisi olla ihan hauska
+- Tikkaat jolla pääsee ylös ilman pillareita tms?
  
  
  ---- TODO BUGIT ----
@@ -51,3 +62,4 @@
  
  - (Tallenna .tmx johonkni muuhun kansioon)
  - Kun tyyppi kuolee (esim pillar tippuu päälle tai myöhemmin piikit jne) -> yhistys/restart
+ 

@@ -269,10 +269,10 @@ namespace Assets.Scripts.Player
                     FlaiDebug.DrawRectangleOutlines(newArea, ColorF.Green * (0.15f + (0.85f) * fractionX), 5.5f);
                     if (Physics2D.OverlapArea(newArea.TopLeft, newArea.BottomRight, BaratieConstants.IgnorePlayerLayerMask) == null)
                     {
-                        return defaultSplitAmount*fractionX + Vector2f.UnitY*yOffset;
+                        return defaultSplitAmount * fractionX + Vector2f.UnitY * yOffset;
                     }
                 }
-               
+
             }
 
             return Vector2f.Zero;

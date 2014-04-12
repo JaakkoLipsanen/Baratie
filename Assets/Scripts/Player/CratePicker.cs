@@ -5,6 +5,7 @@ using Flai.Diagnostics;
 using Flai.Input;
 using Flai.Scene;
 using System.Linq;
+using UnityEngine;
 
 namespace Assets.Scripts.Player
 {
@@ -13,6 +14,8 @@ namespace Assets.Scripts.Player
         private Crate _currentlyPickingCrate;
         private PlayerController _controller;
         private PlayerManager _playerManager;
+
+        private Vector2 _currentCrateOffset;
 
         public bool IsPicking
         {
@@ -29,7 +32,7 @@ namespace Assets.Scripts.Player
         {
             if (_playerManager.CurrentPlayer.GameObject == this.GameObject)
             {
-                this.HandleInput();  
+                this.HandleInput();
             }
 
             if (this.IsPicking)
@@ -40,10 +43,24 @@ namespace Assets.Scripts.Player
 
         private void UpdateCratePosition()
         {
-            const float HorizontalDistance = Tile.Size * 1.5f;
-            const float VerticalDistance = Tile.Size * 1.65f;
+            LayerMaskF layerMask = LayerMaskF.FromNames("Crates", "Player").Inverse;
+            // horizontal
+            Vector2f offset = this.CalculateDefaultCrateOffset();
+            _currentlyPickingCrate.SetPosition2D(this.Position2D + offset);
+            return;
+            RectangleF crateArea = _currentlyPickingCrate.collider2D.GetBoundsHack();
+            for (float fraction = 1f; fraction >= 0; fraction -= 0.1f)
+            {
+                RectangleF newArea = crateArea.AsOffsetted(-offset * fraction);
+                FlaiDebug.DrawRectangleOutlines(newArea, Color.green, 0.5f);
+                if (!Physics2D.OverlapArea(newArea.TopLeft, newArea.BottomRight, layerMask))
+                {
+                    _currentlyPickingCrate.SetPosition2D(this.Position2D + offset * fraction);
+                    return;
+                }
+            }
 
-            _currentlyPickingCrate.SetPosition2D(this.Position2D + _controller.FacingDirection.ToUnitVector() * HorizontalDistance - _controller.GroundDirection.ToUnitVector() * VerticalDistance);
+            _currentlyPickingCrate.SetPosition2D(this.Position2D);     
         }
 
         private void HandleInput()
@@ -82,6 +99,8 @@ namespace Assets.Scripts.Player
                 }
             }
 
+            _currentCrateOffset = Vector2f.Zero;
+
             // draw the pick area
             FlaiDebug.DrawRectangleOutlines(target, ColorF.White, 0.5f);
         }
@@ -104,6 +123,14 @@ namespace Assets.Scripts.Player
                 _currentlyPickingCrate.Drop();
                 _currentlyPickingCrate = null;
             }
+        }
+
+        private Vector2f CalculateDefaultCrateOffset()
+        {
+            const float HorizontalDistance = Tile.Size * 1.5f;
+            const float VerticalDistance = Tile.Size * 1.65f;
+
+            return _controller.FacingDirection.ToUnitVector() * HorizontalDistance - _controller.GroundDirection.ToUnitVector() * VerticalDistance;
         }
     }
 }

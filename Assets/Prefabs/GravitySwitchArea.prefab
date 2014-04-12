@@ -222,6 +222,7 @@ MonoBehaviour:
   m_Script: {fileID: -1170007011, guid: a379e97a623291b4790dceb2186a96cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AllowedDirection: 2
   DrawDebug: 1
 --- !u!114 &11400004
 MonoBehaviour:
@@ -245,7 +246,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3945a4fad5551a4e85faf0f53305179, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SortingOrder: -1
+  SortingOrder: -15
   SetEveryFrame: 1
 --- !u!198 &19800000
 ParticleSystem:
