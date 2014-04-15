@@ -57,7 +57,7 @@
  - X Yhessä, painaa shiftiä pohjaan -> split suoraan vaik ei release
  - X Splitted: Nosta mustallaa toisella crate. Vaiha toiseen ja koita itse pickata se crate (ei onnistu). Vaiha bäkkiin ja kaikki kusee !!!!!
  
- - Crate ei seinän läpi
+ - X Crate ei seinän läpi
  - Tile hommat
  
  - (Tallenna .tmx johonkni muuhun kansioon)
