@@ -101,9 +101,9 @@ MonoBehaviour:
   IsControllingEnabled: 1
   HorizontalSpeedDrag: .850000024
   AccelerationPower: 20
-  SpeedAirDrag: .5
+  SpeedAirDrag: 1
   Speed: 10
-  JumpForce: 800
+  JumpForce: 810
   JumpTimeBias: .100000001
 --- !u!114 &11400002
 MonoBehaviour:

@@ -29,7 +29,7 @@ GameObject:
   - 4: {fileID: 400002}
   - 212: {fileID: 21200002}
   - 60: {fileID: 6000000}
-  m_Layer: 9
+  m_Layer: 14
   m_Name: Base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -141,6 +141,7 @@ MonoBehaviour:
   m_Script: {fileID: -1170007011, guid: a379e97a623291b4790dceb2186a96cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AllowedDirection: 2
   DrawDebug: 1
 --- !u!114 &11400002
 MonoBehaviour:

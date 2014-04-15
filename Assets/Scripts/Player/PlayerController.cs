@@ -15,7 +15,7 @@ namespace Assets.Scripts.Player
 
         public float HorizontalSpeedDrag = 0.85f; // meh name
         public float AccelerationPower = 20;
-        public float SpeedAirDrag = 0.5f;
+        public float SpeedAirDrag = 1f;
         public float Speed = 10;
         public float JumpForce = 750;
         public float JumpTimeBias = 0.1f;

@@ -17,10 +17,6 @@ namespace Assets.Scripts.Objects
             get { return _picker; }
         }
 
-        protected override void Awake()
-        {
-        }
-
         protected override void Update()
         {
             if (!this.IsPicked)

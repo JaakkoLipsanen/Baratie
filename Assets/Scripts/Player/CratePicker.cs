@@ -15,7 +15,7 @@ namespace Assets.Scripts.Player
         private PlayerController _controller;
         private PlayerManager _playerManager;
 
-        private Vector2 _currentCrateOffset;
+        private Vector2f _currentCrateOffset;
 
         public bool IsPicking
         {
@@ -33,34 +33,86 @@ namespace Assets.Scripts.Player
             if (_playerManager.CurrentPlayer.GameObject == this.GameObject)
             {
                 this.HandleInput();
+                this.UpdateCratePosition();
             }
+        }
 
+        protected override void LateUpdate()
+        {
             if (this.IsPicking)
             {
                 this.UpdateCratePosition();
             }
         }
 
-        private void UpdateCratePosition()
+        protected override void FixedUpdate()
         {
-            LayerMaskF layerMask = LayerMaskF.FromNames("Crates", "Player").Inverse;
-            // horizontal
-            Vector2f offset = this.CalculateDefaultCrateOffset();
-            _currentlyPickingCrate.SetPosition2D(this.Position2D + offset);
-            return;
-            RectangleF crateArea = _currentlyPickingCrate.collider2D.GetBoundsHack();
-            for (float fraction = 1f; fraction >= 0; fraction -= 0.1f)
+            if (this.IsPicking)
             {
-                RectangleF newArea = crateArea.AsOffsetted(-offset * fraction);
-                FlaiDebug.DrawRectangleOutlines(newArea, Color.green, 0.5f);
-                if (!Physics2D.OverlapArea(newArea.TopLeft, newArea.BottomRight, layerMask))
+                this.UpdateCratePosition();
+            }
+        }
+
+        private void ResolveAxis(Axis axis, float targetOffsetMultiplier)
+        {
+            Vector2f targetOffset = this.CalculateDefaultCrateOffset();
+            if (FlaiMath.Sign(targetOffset.X) != FlaiMath.Sign(_currentCrateOffset.X))
+            {
+                _currentCrateOffset.X *= -1;
+            }
+
+            if (FlaiMath.Sign(targetOffset.Y) != FlaiMath.Sign(_currentCrateOffset.Y))
+            {
+                _currentCrateOffset.Y *= -1;
+            }
+
+            _currentlyPickingCrate.SetPosition2D(this.Position2D + _currentCrateOffset);
+            RectangleF crateArea = _currentlyPickingCrate.collider2D.GetBoundsHack();
+
+            _currentCrateOffset = this.Resolve(crateArea, _currentCrateOffset, axis, targetOffset.GetAxis(axis) * targetOffsetMultiplier);
+            _currentlyPickingCrate.SetPosition2D(this.Position2D + _currentCrateOffset);
+        }
+
+        private Vector2f Resolve(RectangleF crateArea, Vector2f currentOffset, Axis axis, float targetAmount)
+        {
+            const float ResolveStep = 0.001f;
+            LayerMaskF IgnoreLayerMask = LayerMaskF.FromNames("Crates", "Player", "PlayerHoldingCrate").Inverse;
+
+            float currentAmount = currentOffset.GetAxis(axis);
+            if (currentAmount == targetAmount)
+            {
+                return currentOffset;
+            }
+
+            bool isMovingIn = (targetAmount == 0f);
+            bool stopWhen = !isMovingIn;
+
+            float changeAmount = targetAmount - currentAmount;
+            for (float fraction = 0; fraction <= 1; fraction += ResolveStep)
+            {
+                RectangleF newArea = crateArea.AsOffsetted(axis.ToUnitVector() * changeAmount * fraction);
+                if (Physics2D.OverlapArea(newArea.TopLeft, newArea.BottomRight, IgnoreLayerMask) == stopWhen)
                 {
-                    _currentlyPickingCrate.SetPosition2D(this.Position2D + offset * fraction);
-                    return;
+                    return _currentCrateOffset += axis.ToUnitVector() * changeAmount * fraction;
                 }
             }
 
-            _currentlyPickingCrate.SetPosition2D(this.Position2D);     
+            currentOffset.SetAxis(axis, targetAmount);
+            return currentOffset;
+        }
+
+        private void UpdateCratePosition()
+        {
+            if (_currentlyPickingCrate == null)
+            {
+                return;
+            }
+
+            this.ResolveAxis(Axis.Horizontal, 1);
+            this.ResolveAxis(Axis.Horizontal, 0);
+
+            this.ResolveAxis(Axis.Vertical, 1);
+            this.ResolveAxis(Axis.Vertical, 0);
         }
 
         private void HandleInput()
@@ -69,8 +121,7 @@ namespace Assets.Scripts.Player
             {
                 if (this.IsPicking)
                 {
-                    _currentlyPickingCrate.Drop();
-                    _currentlyPickingCrate = null;
+                    this.Drop();
                 }
                 else
                 {
@@ -81,8 +132,8 @@ namespace Assets.Scripts.Player
 
         private void TryPickUpCrate()
         {
-            RectangleF target = this.collider2D.GetBoundsHack().AsInflated(0.1f, Tile.Size * 0.4f);
-            target.Center += _controller.FacingDirection.ToUnitVector() * target.Width;
+            RectangleF target = this.collider2D.GetBoundsHack().AsInflated(0.3f, Tile.Size * 0.4f);
+            target.Center += _controller.FacingDirection.ToUnitVector() * target.Width * 0.5f;
             var crates = Scene.FindAllOfType<Crate>().ToSet();
             var crate = crates.FirstOrDefault(c => c.collider2D.GetBoundsHack().Intersects(target));
 
@@ -96,10 +147,11 @@ namespace Assets.Scripts.Player
                 {
                     _currentlyPickingCrate = crate;
                     crate.Pick(this.GameObject);
+                    this.OnIsPickingChanged();
                 }
             }
 
-            _currentCrateOffset = Vector2f.Zero;
+            _currentCrateOffset = this.CalculateDefaultCrateOffset();
 
             // draw the pick area
             FlaiDebug.DrawRectangleOutlines(target, ColorF.White, 0.5f);
@@ -114,6 +166,9 @@ namespace Assets.Scripts.Player
 
             other._currentlyPickingCrate = _currentlyPickingCrate;
             _currentlyPickingCrate = null;
+
+            this.OnIsPickingChanged();
+            other.OnIsPickingChanged();
         }
 
         public void Drop()
@@ -122,6 +177,7 @@ namespace Assets.Scripts.Player
             {
                 _currentlyPickingCrate.Drop();
                 _currentlyPickingCrate = null;
+                this.OnIsPickingChanged();
             }
         }
 
@@ -131,6 +187,11 @@ namespace Assets.Scripts.Player
             const float VerticalDistance = Tile.Size * 1.65f;
 
             return _controller.FacingDirection.ToUnitVector() * HorizontalDistance - _controller.GroundDirection.ToUnitVector() * VerticalDistance;
+        }
+
+        private void OnIsPickingChanged()
+        {
+            this.LayerName = this.IsPicking ? "PlayerHoldingCrate" : "Player";
         }
     }
 }
