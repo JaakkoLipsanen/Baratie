@@ -1,5 +1,5 @@
-﻿// ReSharper disable ConvertConditionalTernaryToNullCoalescing
-using Assets.Scripts.General;
+﻿using Assets.Scripts.General;
+// ReSharper disable ConvertConditionalTernaryToNullCoalescing
 using Flai;
 using Flai.Scripts;
 using UnityEngine;
@@ -9,18 +9,17 @@ namespace Assets.Scripts.Objects
     [RequireComponent(typeof(OnTopMover))]
     public class ButtonPresser : FlaiScript
     {
-        private float _height;
-        private float _positionOffset;
-        private Vector2f _initialPosition;
+        private float _positionOffset = 0f;
+        private Vector2f _initialPosition = new Vector2f(0, 0.3f);
         private OnTopMover _onTopMover;
 
         public bool IsPressed
         {
-            get { return this.IsPressing && _positionOffset >= _height; }
+            get { return this.IsPressing && _positionOffset >= this.Height; }
         }
 
         protected bool IsPressing
-        {
+        { 
             get { return this.OnTopMover.HasAny; }
         }
 
@@ -29,10 +28,14 @@ namespace Assets.Scripts.Objects
             get { return _onTopMover != null ? _onTopMover : (_onTopMover = this.Get<OnTopMover>()); }
         }
 
+        protected float Height  
+        {
+            get { return this.BoxCollider2D.size.y * this.Scale2D.Y * Tile.Size; }
+        }
+
         protected override void Awake()
         {
-            _height = this.Get<BoxCollider2D>().size.y * this.Scale2D.Y * Tile.Size;
-            _initialPosition = this.LocalPosition2D;
+         // _initialPosition = this.LocalPosition2D;
             this.OnTopMover.AllowedDirection = DirectionHelper.FromRotation(this.Rotation2D).Opposite();
         }
 
@@ -44,13 +47,13 @@ namespace Assets.Scripts.Objects
         private void UpdateButtonPressing()
         {
             float previous = _positionOffset;
-            if (this.IsPressing && _positionOffset < _height)
+            if (this.IsPressing && _positionOffset < this.Height)
             {
-                _positionOffset = FlaiMath.Min(_positionOffset + _height * Time.deltaTime * 4, _height);
+                _positionOffset = FlaiMath.Min(_positionOffset + this.Height * Time.deltaTime * 4, this.Height);
             }
             else if (!this.IsPressing && _positionOffset > 0)
             {
-                _positionOffset = FlaiMath.Max(_positionOffset - _height * Time.deltaTime * 4, 0);
+                _positionOffset = FlaiMath.Max(_positionOffset - this.Height * Time.deltaTime * 4, 0);
             }
 
             float change = _positionOffset - previous;
