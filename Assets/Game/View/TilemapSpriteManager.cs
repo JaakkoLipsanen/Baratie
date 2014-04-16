@@ -32,7 +32,7 @@ namespace Assets.Game.View
         private Sprite CreateSprite(TilesetManager tilesetManager, int index)
         {
             string textureName;
-            Rect sourceRectangle;
+            RectangleF sourceRectangle;
             tilesetManager.GetTile(index, out textureName, out sourceRectangle);
 
             Texture2D texture = this.LoadTexture(textureName);

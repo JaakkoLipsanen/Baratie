@@ -1,7 +1,6 @@
 ﻿using Flai;
 using System;
 using UnityEngine;
-using TilemapClass = Assets.Game.Model.Tilemap.Tilemap;
 
 namespace Assets.Game.Model.Tilemap
 {
@@ -12,7 +11,7 @@ namespace Assets.Game.Model.Tilemap
         public event GenericEvent Changed;
 
         [SerializeField]
-        private Tilemap _tilemap;
+        private TilemapData _tilemapData;
 
         [SerializeField]
         private TilesetManager _tilesetManager;
@@ -23,9 +22,9 @@ namespace Assets.Game.Model.Tilemap
         [SerializeField]
         private bool _needsRefresh = true; 
 
-        public Tilemap Tilemap
+        public TilemapData TilemapData
         {
-            get { return _tilemap; }
+            get { return _tilemapData; }
         }
 
         public TilesetManager TilesetManager
@@ -35,7 +34,7 @@ namespace Assets.Game.Model.Tilemap
 
         public Size Size
         {
-            get { return _tilemap.Size; }
+            get { return _tilemapData.Size; }
         }
 
         public int UniqueGUID
@@ -49,16 +48,16 @@ namespace Assets.Game.Model.Tilemap
             set { _needsRefresh = value; } // meh
         }
 
-        public void Initialize(Tilemap tilemap, TilesetManager tilesetManager)
+        public void Initialize(TilemapData tilemapData, TilesetManager tilesetManager)
         {
-            _tilemap = tilemap;
+            _tilemapData = tilemapData;
             _tilesetManager = tilesetManager;
             _creationGuid = Global.Random.Next();
         }
 
         public void CopyFrom(MapData other)
         {
-            this.Initialize(other.Tilemap, other.TilesetManager);
+            this.Initialize(other.TilemapData, other.TilesetManager);
             _needsRefresh = true;
             this.Changed.InvokeIfNotNull();
         }
@@ -74,7 +73,7 @@ namespace Assets.Game.Model.Tilemap
                 return false;
             }
 
-            return TilemapClass.AreEqual(map1.Tilemap, map2.Tilemap);
+            return TilemapData.AreEqual(map1.TilemapData, map2.TilemapData);
         }
     }
 }

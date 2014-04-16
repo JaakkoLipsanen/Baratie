@@ -36,7 +36,7 @@ namespace Assets.Scripts.Objects
         protected override void Awake()
         {
          // _initialPosition = this.LocalPosition2D;
-            this.OnTopMover.AllowedDirection = DirectionHelper.FromRotation(this.Rotation2D).Opposite();
+            this.OnTopMover.AllowedDirection = DirectionHelper.FromRotation(this.Rotation2D);
         }
 
         protected override void Update()

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Assets.Scripts.Tiles;
+using UnityEngine;
 
 namespace Assets.Scripts.General
 {
@@ -10,9 +11,9 @@ namespace Assets.Scripts.General
 
     public class Level : MonoBehaviour
     {
-        public TilemapData TilemapData
+        public TilemapContainer TilemapContainer
         {
-            get { return this.GetComponentInChildren<TilemapData>(); }
+            get { return this.GetComponentInChildren<TilemapContainer>(); }
         }
     }
 }

@@ -16,11 +16,20 @@ namespace Assets.Game.Model.Tilemap
             _tilesets = tilesets.OrderBy(tileset => tileset.FirstGid).ToArray();
         }
 
-        public void GetTile(int id, out string textureName, out Rect sourceRectangle)
+        public void GetTile(int id, out string textureName, out RectangleF sourceRectangle)
         {
             Tileset tileset = _tilesets.First(ts => id >= ts.FirstGid  && id < ts.FirstGid + ts.TileCount); // the second check is not necessary
             textureName = tileset.ImageName;
             sourceRectangle = tileset.GetSourceRectangle(id);
+        }
+
+        public RectangleF GetTileSourceRectangle(int id)
+        {
+            string textureName;
+            RectangleF sourceRectangle;
+            this.GetTile(id, out textureName, out sourceRectangle);
+
+            return sourceRectangle;
         }
     }
 

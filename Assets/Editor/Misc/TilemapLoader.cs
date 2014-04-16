@@ -22,10 +22,10 @@ namespace Assets.Editor.Misc
         {
             // todo: white & black layers etc
             TmxTileLayer tileLayer = TilemapLoader.GetMapTileLayer(tmxData);
-            Tilemap tilemap = new Tilemap(tileLayer.TileData, tmxData.MapSize);
+            TilemapData tilemapData = new TilemapData(tileLayer.TileData, tmxData.MapSize);
             TilesetManager tilesetManager = TilemapLoader.CreateTilesetManager(tmxData);
 
-            data.Initialize(tilemap, tilesetManager);
+            data.Initialize(tilemapData, tilesetManager);
         }
 
         private static TmxTileLayer GetMapTileLayer(TmxData tmxData)

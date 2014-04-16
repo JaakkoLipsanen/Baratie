@@ -1,6 +1,7 @@
 ﻿using System;
 using Assets.Scripts;
 using Assets.Scripts.General;
+using Assets.Scripts.Tiles;
 using Flai.Diagnostics;
 using Flai.Editor;
 using UnityEditor;
@@ -88,15 +89,15 @@ namespace Assets.Editor.Inspectors
             }
 
             Level level = levelGameObject.Get<Level>();
-            TilemapData tilemapData = level.TilemapData;
-            if (tilemapData == null || tilemapData.Map == null)
+            TilemapContainer tilemapContainer = level.TilemapContainer;
+            if (tilemapContainer == null || tilemapContainer.Map == null)
             {
                 FlaiDebug.LogWithTypeTag<CameraInspector>("Could not find the Tilemap!");
                 return;
             }
 
-            int width = tilemapData.Tilemap.Width;
-            int height = tilemapData.Tilemap.Height;
+            int width = tilemapContainer.TilemapData.Width;
+            int height = tilemapContainer.TilemapData.Height;
             int max = Math.Max(width, height);
 
             Camera camera = this.Target;

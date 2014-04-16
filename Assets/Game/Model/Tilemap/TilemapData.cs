@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Assets.Game.Model.Tilemap
 {
     [Serializable]
-    public class Tilemap
+    public class TilemapData
     {
         [SerializeField]
         private int[] _tiles;
@@ -30,7 +30,7 @@ namespace Assets.Game.Model.Tilemap
             get { return _height; }
         }
 
-        public Tilemap(int[] tiles, Size size)
+        public TilemapData(int[] tiles, Size size)
         {
             _tiles = tiles;
             _width = size.Width;
@@ -57,7 +57,7 @@ namespace Assets.Game.Model.Tilemap
             return this[x, y] != 0;
         }
 
-        public static bool AreEqual(Tilemap tm1, Tilemap tm2)
+        public static bool AreEqual(TilemapData tm1, TilemapData tm2)
         {
             return tm1.Size == tm2.Size && tm1._tiles.SequenceEqual(tm2._tiles); // todo: for loop would be faster
         }
