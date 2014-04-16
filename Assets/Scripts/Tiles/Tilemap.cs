@@ -94,6 +94,38 @@ namespace Assets.Scripts.Tiles
         {
             var sides = this.CreateTileSides(tilemapData);
 
+            // todo: right now, all colliders are straight lines. they dont have to be.
+            // todo>> make one collider for each closed shape. thus the amount of colliders is reduced greatly
+            while (sides.Count > 0)
+            {
+                TileSide startSide = sides.First();
+                sides.Remove(startSide);
+
+                Vector2f min = startSide.Min;
+                Vector2f max = startSide.Max;
+
+                TileSide previous = startSide.Previous;
+                while (sides.Contains(previous))
+                {
+                    sides.Remove(previous);
+                    min = previous.Min;
+                    previous = previous.Previous;
+                }
+
+                TileSide next = startSide.Next;
+                while (sides.Contains(next))
+                {
+                    sides.Remove(next);
+                    max = next.Max;
+                    next = next.Next;
+                }
+
+                this.Add<EdgeCollider2D>().points = new Vector2[] { min, max };
+            }
+
+            #region !! TODO !! This is the optimized version (combines the colliders) which doesn't work with Unity 4.3, BUT it should work with Unity 4.5 (there is a bug with EdgeColliders and Physics2D.OverlapArea which broke crate collisions!!)
+
+            /*
             // create segments
             HashSet<Segment2Di> segments = new HashSet<Segment2Di>();
             Dictionary<Vector2i, HashSet<Segment2Di>> pointToSegment = new Dictionary<Vector2i, HashSet<Segment2Di>>();
@@ -141,7 +173,7 @@ namespace Assets.Scripts.Tiles
                 List<Vector2> points = new List<Vector2>() { current.Start * Tile.Size, current.End * Tile.Size };
                 while (pointToSegment[current.End].Count != 0)
                 {
-                    Segment2Di newSegment = pointToSegment[current.End].FirstOrDefault(s => segments.Contains(s));
+                    Segment2Di newSegment = pointToSegment[current.End].FirstOrDefault(segments.Contains);
                     if (newSegment == default(Segment2Di))
                     {
                         break;
@@ -162,7 +194,9 @@ namespace Assets.Scripts.Tiles
                 }
 
                 this.Add<EdgeCollider2D>().points = points.ToArray();
-            }
+            }   */
+
+            #endregion
         }
 
         private HashSet<TileSide> CreateTileSides(TilemapData tilemapData)

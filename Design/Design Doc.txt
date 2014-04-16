@@ -63,3 +63,8 @@
  - (Tallenna .tmx johonkni muuhun kansioon)
  - Kun tyyppi kuolee (esim pillar tippuu päälle tai myöhemmin piikit jne) -> yhistys/restart
  
+ 
+ -- TODO UNITY 4.5 --
+ - Älä käytä collider2D.GetBoundsHackia. Kuulemma 4.5:ssä tulee bounds property collider2D:lle
+ - Käytä optimoitua versiota Tilemap collidereista. Tein jo, mutta Unity 4.5:ssä on bugi EdgeCollider2D ja Physics2D.OverlapArean kanssa, jonka vuoksi crate ei toimi. Kommentoin sen koodissa ja tein myös yhen commitin missä se on mukana.
+ 
