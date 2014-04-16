@@ -1,5 +1,4 @@
-﻿using Assets.Scripts.General;
-using Assets.Scripts.Objects;
+﻿using Assets.Scripts.Objects;
 using Flai.Editor;
 using UnityEditor;
 
@@ -10,8 +9,9 @@ namespace Assets.Editor.Inspectors
     {
         public override void OnInspectorGUI()
         {
-            this.Target.Response = EditorGUILayout.ObjectField("Response", this.Target.Response, typeof(Response), true) as Response;
-            EditorUtility.SetDirty(this.Target);
+            this.DrawDefaultInspector();
+           // this.Target.Response = EditorGUILayout.ObjectField("Response", this.Target.Response, typeof(Response), true) as Response;
+           // EditorUtility.SetDirty(this.Target);
         }
     }
 }

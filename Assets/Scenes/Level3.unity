@@ -1720,7 +1720,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 827d55503858dfd41a4234d9dec24474, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Response: {fileID: 1631587886}
+  Responses:
+  - {fileID: 1631587886}
 --- !u!1 &440138166
 GameObject:
   m_ObjectHideFlags: 0
@@ -2670,6 +2671,10 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 11400002, guid: cdbe624f385da2a4a8df3ff5f0f1c017, type: 2}
+      propertyPath: Responses.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: cdbe624f385da2a4a8df3ff5f0f1c017, type: 2}
       propertyPath: m_LocalPosition.x
       value: 18.5
@@ -2700,6 +2705,10 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11400002, guid: cdbe624f385da2a4a8df3ff5f0f1c017, type: 2}
       propertyPath: Response
+      value: 
+      objectReference: {fileID: 440138168}
+    - target: {fileID: 11400002, guid: cdbe624f385da2a4a8df3ff5f0f1c017, type: 2}
+      propertyPath: Responses.Array.data[0]
       value: 
       objectReference: {fileID: 440138168}
     m_RemovedComponents: []
@@ -4077,6 +4086,10 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 11400002, guid: cdbe624f385da2a4a8df3ff5f0f1c017, type: 2}
+      propertyPath: Responses.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: cdbe624f385da2a4a8df3ff5f0f1c017, type: 2}
       propertyPath: m_LocalPosition.x
       value: 9.5
@@ -4107,6 +4120,10 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11400002, guid: cdbe624f385da2a4a8df3ff5f0f1c017, type: 2}
       propertyPath: Response
+      value: 
+      objectReference: {fileID: 1631587886}
+    - target: {fileID: 11400002, guid: cdbe624f385da2a4a8df3ff5f0f1c017, type: 2}
+      propertyPath: Responses.Array.data[0]
       value: 
       objectReference: {fileID: 1631587886}
     m_RemovedComponents: []
@@ -4278,7 +4295,7 @@ MonoBehaviour:
   m_Script: {fileID: -1170007011, guid: a379e97a623291b4790dceb2186a96cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AllowedDirection: 2
+  AllowedDirection: 0
   DrawDebug: 1
 --- !u!1 &1631587884
 GameObject:
@@ -4393,7 +4410,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 827d55503858dfd41a4234d9dec24474, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Response: {fileID: 440138168}
+  Responses:
+  - {fileID: 440138168}
 --- !u!1 &1844081484
 GameObject:
   m_ObjectHideFlags: 0
@@ -4679,7 +4697,7 @@ MonoBehaviour:
   m_Script: {fileID: -1170007011, guid: a379e97a623291b4790dceb2186a96cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AllowedDirection: 2
+  AllowedDirection: 0
   DrawDebug: 1
 --- !u!4 &1953571457
 Transform:

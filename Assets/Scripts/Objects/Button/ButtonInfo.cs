@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.General;
+﻿using System.Collections.Generic;
+using Assets.Scripts.General;
 using Flai;
 using Flai.Diagnostics;
 
@@ -8,8 +9,12 @@ namespace Assets.Scripts.Objects
     {
         private bool _wasPressed = false;
         private ButtonPresser _buttonPresser;
+        public List<Response> Responses = new List<Response>();
 
-        public Response Response;
+        public bool HasResponses
+        {
+            get { return this.Responses != null && this.Responses.Count > 0; }
+        }
 
         protected override void Awake()
         {
@@ -28,23 +33,29 @@ namespace Assets.Scripts.Objects
                 if (_buttonPresser.IsPressed)
                 {
                     _wasPressed = true;
-                    if (this.Response != null)
+                    if (this.HasResponses)
                     {
-                        this.Response.ExecuteOn(null);
+                        foreach (Response response in this.Responses)
+                        {
+                            response.ExecuteOn(null);
+                        }
                     }
                 }
                 else
                 {
                     _wasPressed = false;
-                    if (this.Response != null)
+                    if (this.HasResponses)
                     {
-                        this.Response.ExecuteOff(null);
+                        foreach (Response response in this.Responses)
+                        {
+                            response.ExecuteOff(null);
+                        }
                     }
                 }
 
-                if (this.Response == null)
+                if (!this.HasResponses)
                 {
-                    FlaiDebug.LogWarningWithTypeTag<ButtonInfo>("Button doesn't have a response!", this);
+                    FlaiDebug.LogWarningWithTypeTag<ButtonInfo>("Button doesn't have any responses!", this);
                 }
             }
         }

@@ -1,70 +1,56 @@
+-- GENERAL --
+
 - "Yet another Darklight kopio". 2D peli, ehk room-based. Sulla on tyyppi (oikeet graffat, pikseli varmaan), joka voi jakaa ittensä kahteen (musta ja valkonen). 
   Sit sä voit missä kohassa vaan "sulattautua yhteen" kummalla tahansa tyypillä. Sit kans 2 worldiä (musta ja valkonen), mut tää elementti ei oo niin oleellinen kuin se "singleplayer co-op".
   Gameplay normi plättäri tyylistä, hyppiminen
    
+-- TODO OMINAISUUDET -- (semisti järjestyksessä)
+
+- Portal 2:sta tuttu "Excursion Funnel"/gravity spike. voi viedä pelaajia tai crateja. voi laittaa nappiin kiinni et aktivioituu kun nappi painettu
+- Toggle Button: mikähän ois paras tapa. 
+  - Tapa 1: vähän niinkun 1x2 tile, jossa vasen ja oikea puoli on keskellä pieni valkonen nappi joka togglea toisen kun menee.
+  - Tapa 2: "mekaaninen", kulmassa oleva toggle nappi. mieti jotai real life. vaikka valo-katkasija
+  - Tapa 3: normi button, mutta mikä muuttaa väriä aina kun sen päälle hyppää. Esim musta/valko tms
+  
+- Gravity Switch Idea
+   - Jos on gravity switchin päällä, niin oma gravity ei voi muuttua toisen gravity switchin voimasta
+
+- Time Stop Spot (buttoneita vähän niinkun)
+- Portal pelistä tuttuja "alueita"/kalvoja/ovia jotka tuhoaa cubet. tässä tapauksessa tuhoaa splittauksen. Tää ehk vois toimii buttonien kaa (button pohjas -> deaktiivinen)
+
+- Spiket
+- "Liukualusta"/Likuhihna
+- 2D portaaleita?
+- Moving Platformit
+
+// ehkä?
+- Pillarit voi painaa nappeja.
+
+- Kanuuna joka ampuu kuteja joitten päälle voi hypätä. time stopin kanssa voisi olla ihan hauska
+- Tikkaat jolla pääsee ylös ilman pillareita tms?
+ 
+ -- TEHDYT OMINAISUUDET --
 - Buttons
 - Pillars
 - Gravity Spot
 - Cubet (voi hyppää päälle, voi laittaa nappien päälle)
 - Avain -> Goal(/Ovi????)
-
-- Portal 2:sta tuttu "Excursion Funnel"/gravity spike. voi viedä pelaajia tai crateja. voi laittaa nappiin kiinni et aktivioituu kun nappi painettu
 - Multi Button Response
-- Toggle Button: mikähän ois paras tapa. 
-  - Tapa 1: vähän niinkun 1x2 tile, jossa vasen ja oikea puoli on keskellä pieni valkonen nappi joka togglea toisen kun menee.
-  - Tapa 2: "mekaaninen", kulmassa oleva toggle nappi. mieti jotai real life. vaikka valo-katkasija
-  - Tapa 3: normi button, mutta mikä muuttaa väriä aina kun sen päälle hyppää. Esim musta/valko tms
-
-- Time Stop Spot (buttoneita vähän niinkun)
-- Moving Platformit
-- Portal pelistä tuttuja "alueita"/kalvoja/ovia jotka tuhoaa cubet. tässä tapauksessa tuhoaa splittauksen
-- 2D portaaleita?
-- Spiket
-
-- Pillarit voi painaa nappeja.
-
-- Zoomaus Idea
-   - "et silti room based, jostain voi kattoo koko huonetta joka voi siis olla vaikka kuinka valtava tahansa, mut sit jos noi eri tyypit lähtee eri suuntiin niin ne pysyy aina samassa kuvaruudussa, eli se mappi zoomaa kauemmas"
-   - Eli mapit voi olla splitattu osiin
-   
- 
- - Gravity Switch Idea
-   - Jos on gravity switchin päällä, niin oma gravity ei voi muuttua toisen gravity switchin voimasta
-   
-
-- Multi Response Buttoneilla voi esim saada QUBE:n sellasii juttui, esim keltanen kolmipaska.
-
-- "Liukualusta"/Likuhihna
-- Kanuuna joka ampuu kuteja joitten päälle voi hypätä. time stopin kanssa voisi olla ihan hauska
-- Tikkaat jolla pääsee ylös ilman pillareita tms?
- 
  
  ---- TODO BUGIT ----
- - X Button alue liian suuri 
- - X Rotated button/pillar alue kusee (GetBoundsHack)
- - X Avain -> Goal. täl hetkellä goalin particlet spawnaa heti (prewarmed). tee niin et spawnaa smoothisti
- - X Epäaktiivinen player nostaa craten inputista
- - X Leijuva crate bugia
- - X Kun yhistyy/splittaa, niin aina tyypit kattoo oikeelle. tee niin et jos se edellinen katto vasemmalle, nini kato säkin
- - X(?) Nappula jää pohjaan joskus tai telee 0,0
-  
- - X Kaikkien render order vähän kusee (player arrow, player silmä jne)
- - X(korjasin niin et heittää warningin exceptionin sijaan, en kuten selitin täs) Korjaa Scene Fade (= fading out -> next fade allowed)
- - X Player tippuu -> Splittaa, velocity starttaa nolla
- - X Joskus kun splittaa ilmassa, niin pystyy hypätä uudestaan
- - X Jakautumis bugi (ei voi spawnaa seinän läpi/seinään tms)
- 
- - X Yhessä, painaa shiftiä pohjaan -> split suoraan vaik ei release
- - X Splitted: Nosta mustallaa toisella crate. Vaiha toiseen ja koita itse pickata se crate (ei onnistu). Vaiha bäkkiin ja kaikki kusee !!!!!
- 
- - X Crate ei seinän läpi
- - Tile hommat
- 
- - (Tallenna .tmx johonkni muuhun kansioon)
  - Kun tyyppi kuolee (esim pillar tippuu päälle tai myöhemmin piikit jne) -> yhistys/restart
- 
  
  -- TODO UNITY 4.5 --
  - Älä käytä collider2D.GetBoundsHackia. Kuulemma 4.5:ssä tulee bounds property collider2D:lle
- - Käytä optimoitua versiota Tilemap collidereista. Tein jo, mutta Unity 4.5:ssä on bugi EdgeCollider2D ja Physics2D.OverlapArean kanssa, jonka vuoksi crate ei toimi. Kommentoin sen koodissa ja tein myös yhen commitin missä se on mukana.
- 
+ - Käytä optimoitua versiota Tilemap collidereista. Tein jo, mutta Unity 4.5:ssä on bugi EdgeCollider2D ja Physics2D.OverlapArean kanssa, jonka vuoksi crate ei toimi. Kommentoin sen koodissa ja tein myös yhen commitin missä se on mukana. 
+
+ -- RANDOM POHDINTAA --
+ - Zoomaus Idea
+   - "et silti room based, jostain voi kattoo koko huonetta joka voi siis olla vaikka kuinka valtava tahansa, mut sit jos noi eri tyypit lähtee eri suuntiin niin ne pysyy aina samassa kuvaruudussa, eli se mappi zoomaa kauemmas"
+   - Eli mapit voi olla splitattu osiin
+    
+- Multi Response Buttoneilla voi esim saada QUBE:n sellasii juttui, esim keltanen kolmipaska.
+
+-- MAP IDEA --
+-  Portal 2 co-op mappi missä toinen menee "mazeen"/mestaan, ja toinen jää ulkopuolelle painamaan nappeja tms jonka avulla "mazen" sisällä oleva tyyppi pääsee loppuun
+- Molemmat tyypit nappuloilla/toggleilla tms, ohjaa cratea/avainta funneleiden/pillareiuden/liukuhihnojen avulla.

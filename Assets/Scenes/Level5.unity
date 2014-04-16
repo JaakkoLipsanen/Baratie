@@ -1251,6 +1251,10 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 11400002, guid: cdbe624f385da2a4a8df3ff5f0f1c017, type: 2}
+      propertyPath: Responses.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: cdbe624f385da2a4a8df3ff5f0f1c017, type: 2}
       propertyPath: m_LocalPosition.x
       value: 12.5
@@ -1281,6 +1285,10 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11400002, guid: cdbe624f385da2a4a8df3ff5f0f1c017, type: 2}
       propertyPath: Response
+      value: 
+      objectReference: {fileID: 823456211}
+    - target: {fileID: 11400002, guid: cdbe624f385da2a4a8df3ff5f0f1c017, type: 2}
+      propertyPath: Responses.Array.data[0]
       value: 
       objectReference: {fileID: 823456211}
     m_RemovedComponents: []
@@ -1558,11 +1566,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 400002, guid: c6c4c7c5575ab6a408eb0479dcc095be, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 21.6243172
+      value: 21.5
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: c6c4c7c5575ab6a408eb0479dcc095be, type: 2}
       propertyPath: m_LocalPosition.y
-      value: .914635897
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: c6c4c7c5575ab6a408eb0479dcc095be, type: 2}
       propertyPath: m_LocalPosition.z
@@ -1634,7 +1642,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 827d55503858dfd41a4234d9dec24474, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Response: {fileID: 823456211}
+  Responses:
+  - {fileID: 823456211}
 --- !u!1 &773624960
 GameObject:
   m_ObjectHideFlags: 0
@@ -2167,7 +2176,7 @@ Transform:
   m_PrefabInternal: {fileID: 718305480}
   m_GameObject: {fileID: 1321784312}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 21.6243172, y: .914635897, z: 0}
+  m_LocalPosition: {x: 21.5, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2133413182}
@@ -4344,7 +4353,7 @@ MonoBehaviour:
   m_Script: {fileID: -1170007011, guid: a379e97a623291b4790dceb2186a96cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AllowedDirection: 2
+  AllowedDirection: 0
   DrawDebug: 1
 --- !u!50 &1846089831
 Rigidbody2D:
