@@ -5,6 +5,7 @@ using Flai;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Flai.Diagnostics;
 using UnityEngine;
 
 namespace Assets.Scripts.Tiles
@@ -93,21 +94,22 @@ namespace Assets.Scripts.Tiles
         {
             var sides = this.CreateTileSides(tilemapData);
 
-            // todo: right now, all colliders are straight lines. they dont have to be.
-            // todo>> make one collider for each closed shape. thus the amount of colliders is reduced greatly
+            // create segments
+            HashSet<Segment2Di> segments = new HashSet<Segment2Di>();
+            Dictionary<Vector2i, HashSet<Segment2Di>> pointToSegment = new Dictionary<Vector2i, HashSet<Segment2Di>>();
             while (sides.Count > 0)
             {
                 TileSide startSide = sides.First();
                 sides.Remove(startSide);
 
-                Vector2f min = startSide.Min;
-                Vector2f max = startSide.Max;
+                Vector2i min = startSide.MinIndex;
+                Vector2i max = startSide.MaxIndex;
 
                 TileSide previous = startSide.Previous;
                 while (sides.Contains(previous))
                 {
                     sides.Remove(previous);
-                    min = previous.Min;
+                    min = previous.MinIndex;
                     previous = previous.Previous;
                 }
 
@@ -115,11 +117,51 @@ namespace Assets.Scripts.Tiles
                 while (sides.Contains(next))
                 {
                     sides.Remove(next);
-                    max = next.Max;
+                    max = next.MaxIndex;
                     next = next.Next;
                 }
 
-                this.Add<EdgeCollider2D>().points = new Vector2[] { min, max };
+                Segment2Di segment = new Segment2Di(min, max);
+                segments.Add(segment);
+
+                pointToSegment.GetOrAddDefault(min).Add(segment);
+                pointToSegment.GetOrAddDefault(max).Add(segment);
+            }
+
+            //  FlaiDebug.LogWarning("S: " + string.Join(", ", segments.ToArray().Select(p => p.ToString()).ToArray()));
+            // combine segments and create edge colliders
+            while (segments.Count > 0)
+            {
+                Segment2Di current = segments.First();
+                FlaiDebug.Log(current);
+                segments.Remove(current);
+                pointToSegment[current.Start].Remove(current);
+                pointToSegment[current.End].Remove(current);
+
+                List<Vector2> points = new List<Vector2>() { current.Start * Tile.Size, current.End * Tile.Size };
+                while (pointToSegment[current.End].Count != 0)
+                {
+                    Segment2Di newSegment = pointToSegment[current.End].FirstOrDefault(s => segments.Contains(s));
+                    if (newSegment == default(Segment2Di))
+                    {
+                        break;
+                    }
+
+                    segments.Remove(newSegment);
+                    segments.Remove(newSegment.Flipped);
+                    if (newSegment.End == current.End)
+                    {
+                        newSegment = newSegment.Flipped;
+                    }
+
+                    FlaiDebug.Log(newSegment);
+                    pointToSegment[newSegment.Start].Remove(newSegment);
+                    pointToSegment[newSegment.End].Remove(newSegment);
+                    points.Add(newSegment.End * Tile.Size);
+                    current = newSegment;
+                }
+
+                this.Add<EdgeCollider2D>().points = points.ToArray();
             }
         }
 
@@ -175,8 +217,8 @@ namespace Assets.Scripts.Tiles
 
         private struct TileSide : IEquatable<TileSide>
         {
-            private readonly Vector2i Index;
-            private readonly Direction2D Side;
+            public readonly Vector2i Index;
+            public readonly Direction2D Side;
 
             public TileSide Previous
             {
@@ -186,6 +228,47 @@ namespace Assets.Scripts.Tiles
             public TileSide Next
             {
                 get { return new TileSide(this.Index + this.RealDirection.ToUnitVector(), this.Side); }
+            }
+
+            public TileSide NextLeft
+            {
+                get
+                {
+                    Direction2D newSide = this.Side.RotateLeft();
+                    Vector2i newIndex = this.Index + this.Side.ToUnitVector() + this.Side.RotateRight().ToUnitVector();
+
+                    return new TileSide(newIndex, newSide);
+                }
+            }
+
+            public TileSide NextRight
+            {
+                get
+                {
+                    Direction2D newSide = this.Side.RotateRight();
+                    Vector2i newIndex = this.Index + this.Side.ToUnitVector() + this.Side.RotateLeft().ToUnitVector();
+
+                    return new TileSide(newIndex, newSide);
+                }
+
+            }
+
+            public TileSide NextLeft2
+            {
+                get
+                {
+                    Direction2D newSide = this.Side.RotateLeft();
+                    return new TileSide(this.Index, newSide);
+                }
+            }
+
+            public TileSide NextRight2
+            {
+                get
+                {
+                    Direction2D newSide = this.Side.RotateRight();
+                    return new TileSide(this.Index, newSide);
+                }
             }
 
             public Vector2f Min
@@ -222,7 +305,7 @@ namespace Assets.Scripts.Tiles
                 }
             }
 
-            private Vector2i MinIndex
+            public Vector2i MinIndex
             {
                 get
                 {
@@ -243,6 +326,12 @@ namespace Assets.Scripts.Tiles
                     }
                 }
             }
+
+            public Vector2i MaxIndex
+            {
+                get { return this.MinIndex + this.RealDirection.ToUnitVector(); }
+            }
+
 
             public TileSide(Vector2i index, Direction2D side)
             {
