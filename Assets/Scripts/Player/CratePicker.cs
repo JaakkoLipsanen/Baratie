@@ -17,7 +17,7 @@ namespace Assets.Scripts.Player
 
     public class CratePicker : FlaiScript
     {
-        private static readonly LayerMaskF CrateCollisionLayerMask = LayerMaskF.FromNames("Crates", "Player", "PlayerHoldingCrate").Inverse;
+        private static readonly LayerMaskF CrateCollisionLayerMask = LayerMaskF.FromNames("Crates", "Player", "PlayerHoldingCrate", "Funnel", "Keys").Inverse;
         private Crate _currentlyPickingCrate;
         private PlayerController _controller;
         private PlayerManager _playerManager;

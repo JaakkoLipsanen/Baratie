@@ -47,7 +47,7 @@ namespace Assets.Scripts.Player
             get
             {
                 float gravity = Physics2D.gravity.y * this.rigidbody2D.gravityScale;
-                return (gravity < 0) ? VerticalDirection.Down : VerticalDirection.Up;
+                return (gravity <= 0) ? VerticalDirection.Down : VerticalDirection.Up;
             }
         }
 
