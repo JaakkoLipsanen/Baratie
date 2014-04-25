@@ -1,53 +1,44 @@
 ﻿using Flai;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Scripts.Objects
 {
     public class GravitySwitchArea : FlaiScript
     {
-        private readonly HashSet<GameObject> _gameObjectsInArea = new HashSet<GameObject>();
-        private readonly HashSet<GameObject> _gameObjectsToRemove = new HashSet<GameObject>(); 
+        private GameObject _currentGameObjectInArea;
+        private bool _isOn = false;
+
         protected override void OnTriggerEnter2D(Collider2D other)
         {
-            if (_gameObjectsInArea.Contains(other.gameObject) || _gameObjectsInArea.Count > 0) // allow only one gameobject (these hashsets are useless now :P)
+            if (_currentGameObjectInArea != null)
             {
                 return;
             }
 
             Physics2D.gravity *= - 1;
-            other.rigidbody2D.gravityScale *= -1;
-
-            _gameObjectsInArea.Add(other.gameObject);
+            _currentGameObjectInArea = other.gameObject;
+            _currentGameObjectInArea.rigidbody2D.gravityScale *= -1;
+            _isOn = true;
         }
 
         protected override void OnTriggerExit2D(Collider2D other)
         {
-            if (!_gameObjectsInArea.Contains(other.gameObject))
+            if (_currentGameObjectInArea == other.gameObject)
             {
-                return;
+                Physics2D.gravity *= -1;
+                _currentGameObjectInArea.rigidbody2D.gravityScale *= -1;
+                _currentGameObjectInArea = null;
+                _isOn = false;
             }
-
-            Physics2D.gravity *= -1;
-            other.rigidbody2D.gravityScale *= -1;
-
-            _gameObjectsInArea.Remove(other.gameObject);
         }
 
         protected override void LateUpdate()
         {
-            foreach (GameObject go in _gameObjectsInArea)
+            if (_isOn && _currentGameObjectInArea == null)
             {
-                // removed from scene, probably because of a split
-                if (go == null)
-                {
-                    _gameObjectsToRemove.Add(go);
-                    Physics2D.gravity *= -1;
-                }
+                Physics2D.gravity *= -1;
+                _currentGameObjectInArea = null;
             }
-
-            _gameObjectsInArea.RemoveWhere(go => _gameObjectsToRemove.Contains(go));
-            _gameObjectsToRemove.Clear();
         }
     }
 }

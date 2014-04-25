@@ -11,8 +11,8 @@ namespace Assets.Scripts.Objects
     {
         private HashSet<GameObject> _gameObjectsOnFunnel = new HashSet<GameObject>();
 
-        public float Speed = 2f;
-        public float Thickness = 1f; // in units
+        public float Speed = 4f;
+        public float Thickness = 2f; // in units
         public bool IsReversed = false;
         public bool IsOn = true;
 

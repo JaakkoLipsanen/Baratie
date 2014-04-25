@@ -4,6 +4,6 @@ namespace Assets.Misc
 {
     public static class BaratieConstants
     {
-        public static readonly LayerMaskF IgnorePlayerLayerMask = LayerMaskF.FromNames("Player", "PlayerHoldingCrate").Inverse;
+        public static readonly LayerMaskF IgnorePlayerLayerMask = LayerMaskF.FromNames("Player", "PlayerHoldingCrate", "Funnel").Inverse;
     }
 }
