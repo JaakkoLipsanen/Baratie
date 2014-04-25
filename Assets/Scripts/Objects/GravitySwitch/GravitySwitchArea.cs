@@ -10,6 +10,11 @@ namespace Assets.Scripts.Objects
 
         protected override void OnTriggerEnter2D(Collider2D other)
         {
+            if (_isOn && _currentGameObjectInArea == null)
+            {
+           //     _isOn = false;
+            }
+
             if (_currentGameObjectInArea != null)
             {
                 return;
@@ -23,7 +28,7 @@ namespace Assets.Scripts.Objects
 
         protected override void OnTriggerExit2D(Collider2D other)
         {
-            if (_currentGameObjectInArea == other.gameObject)
+            if (_isOn && _currentGameObjectInArea == other.gameObject)
             {
                 Physics2D.gravity *= -1;
                 _currentGameObjectInArea.rigidbody2D.gravityScale *= -1;
@@ -34,10 +39,16 @@ namespace Assets.Scripts.Objects
 
         protected override void LateUpdate()
         {
-            if (_isOn && _currentGameObjectInArea == null)
+            if (_isOn && (_currentGameObjectInArea == null || !PhysicsHelper.Intersects(this.collider2D, _currentGameObjectInArea.collider2D, 0.1f)))
             {
                 Physics2D.gravity *= -1;
+                if (_currentGameObjectInArea != null)
+                {
+                    _currentGameObjectInArea.rigidbody2D.gravityScale *= -1;
+                }
+
                 _currentGameObjectInArea = null;
+                _isOn = false;
             }
         }
     }
