@@ -11,7 +11,7 @@ namespace Assets.Scripts.UI
 
         protected override void Start()
         {
-            _playerManager = Object.FindObjectOfType<PlayerManager>(); // slow probably but whatever
+            _playerManager = Object.FindObjectOfType<PlayerManager>();
         }
 
         protected override void OnGUI()

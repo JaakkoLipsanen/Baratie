@@ -1,4 +1,4 @@
-﻿
+﻿using Flai.Inspector;
 // ReSharper disable ConvertConditionalTernaryToNullCoalescing
 using Assets.Scripts.General;
 using Flai;
@@ -14,6 +14,7 @@ namespace Assets.Scripts.Objects
         private Vector2f _initialPosition = new Vector2f(0, 0.3f);
         private OnTopMover _onTopMover;
 
+        [ShowInInspector(IsReadOnly = true)]
         public bool IsPressed
         {
             get { return this.IsPressing && _positionOffset >= this.Height; }

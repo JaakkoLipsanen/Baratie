@@ -1,12 +1,13 @@
-﻿using Flai;
+﻿using Assets.Scripts.General;
+using Flai;
 using Flai.Diagnostics;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Scripts.Objects
 {
+    [ExecuteInEditMode] 
     [RequireComponent(typeof(SpriteRenderer))]
-    [ExecuteInEditMode]
     public class Funnel : FlaiScript
     {
         private HashSet<GameObject> _gameObjectsOnFunnel = new HashSet<GameObject>();
@@ -48,47 +49,65 @@ namespace Assets.Scripts.Objects
         {
             if (!this.IsOn)
             {
-                _gameObjectsOnFunnel.Clear();
+                this.RemoveAll();
                 return;
             }
-
-            _gameObjectsOnFunnel.RemoveWhere(go =>
-            {
-                bool remove = go == null || !PhysicsHelper.Intersects(go.collider2D, this.collider2D);
-                if (remove && go.rigidbody2D != null)
-                {
-                    go.rigidbody2D.gravityScale = 1;
-                }
-
-                return remove;
-            });
-
+        
+            this.RemoveGameObjectsOutside();
             foreach (GameObject go in _gameObjectsOnFunnel)
             {
                 go.AddPosition2D(this.RotationDirection2D * this.Speed * Time.deltaTime * (this.IsReversed ? -1 : 1));
-                if (go.rigidbody2D)
+                if (go.rigidbody2D != null)
                 {
-                    go.rigidbody2D.velocity *= 0.98f;
+                    go.rigidbody2D.velocity *= 0.9f;
                 }
             }
         }
 
         protected override void OnTriggerEnter2D(Collider2D other)
         {
-            _gameObjectsOnFunnel.Add(other.gameObject);
-            if (other.rigidbody2D != null)
+            var gravityState = other.TryGet<GravityState>();
+            if (gravityState != null)
             {
-                other.rigidbody2D.gravityScale = 0;
+                _gameObjectsOnFunnel.Add(gravityState.GameObject);
+                gravityState.UseGravity = false;
             }
         }
 
         protected override void OnTriggerExit2D(Collider2D other)
         {
-            _gameObjectsOnFunnel.Remove(other.gameObject);
-            if (other.rigidbody2D != null)
+            if (_gameObjectsOnFunnel.Remove(other.gameObject))
             {
-                other.rigidbody2D.gravityScale = 1;
+                var gravityState = other.TryGet<GravityState>();
+                gravityState.UseGravity = true;
             }
+        }
+
+        private void RemoveAll()
+        {
+            foreach (GameObject go in _gameObjectsOnFunnel)
+            {
+                if (go != null)
+                {
+                    go.Get<GravityState>().UseGravity = true;
+                }
+            }
+
+            _gameObjectsOnFunnel.Clear();
+        }
+
+        private void RemoveGameObjectsOutside()
+        {
+            _gameObjectsOnFunnel.RemoveWhere(go =>
+            {
+                bool remove = (go == null) || !PhysicsHelper.Intersects(go.collider2D, this.collider2D);
+                if (remove && go != null)
+                {
+                    go.Get<GravityState>().UseGravity = true;
+                }
+
+                return remove;
+            });
         }
     }
 }
