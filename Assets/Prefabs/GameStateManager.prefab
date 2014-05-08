@@ -35,10 +35,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 100000}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21e77f9232a5add4ab853ef3ebd0eae8, type: 3}
+  m_Script: {fileID: -1831129446, guid: a379e97a623291b4790dceb2186a96cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ExitKey: 27
+  LoadFirstSceneKey: 27
+  ReloadSceneKey: 8
+  NextSceneKey: 280
+  PreviousSceneKey: 281
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

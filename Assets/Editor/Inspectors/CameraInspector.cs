@@ -1,9 +1,8 @@
-﻿using System;
-using Assets.Scripts;
-using Assets.Scripts.General;
-using Assets.Scripts.Tiles;
+﻿using Assets.Scripts.General;
 using Flai.Diagnostics;
 using Flai.Editor;
+using System;
+using Flai.Tilemap;
 using UnityEditor;
 using UnityEngine;
 
@@ -27,13 +26,18 @@ namespace Assets.Editor.Inspectors
             }
             else
             {
-                base.OnInspectorGUI();
+                this.Draw3DMode();
             }
 
             EditorPrefs.SetBool("IsCameraInspectorIn2DMode", is2dMode);
         }
 
-        private void Draw2DMode()
+        protected virtual void Draw3DMode()
+        {
+            base.OnInspectorGUI();
+        }
+
+        protected virtual void Draw2DMode()
         {
             var labelWidth = GUILayout.Width(Screen.width / 2.5f);
             EditorGUILayout.BeginHorizontal();
@@ -90,14 +94,14 @@ namespace Assets.Editor.Inspectors
 
             Level level = levelGameObject.Get<Level>();
             TilemapContainer tilemapContainer = level.TilemapContainer;
-            if (tilemapContainer == null || tilemapContainer.Map == null)
+            if (tilemapContainer == null || tilemapContainer.TmxAsset == null)
             {
                 FlaiDebug.LogWithTypeTag<CameraInspector>("Could not find the Tilemap!");
                 return;
             }
 
-            int width = tilemapContainer.TilemapData.Width;
-            int height = tilemapContainer.TilemapData.Height;
+            int width = tilemapContainer.Size.Width;
+            int height = tilemapContainer.Size.Height;
             int max = Math.Max(width, height);
 
             Camera camera = this.Target;

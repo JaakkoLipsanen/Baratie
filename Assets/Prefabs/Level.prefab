@@ -74,11 +74,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 100002}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d61e345685780e4a8d3047c3625b223, type: 3}
+  m_Script: {fileID: -1685334229, guid: a379e97a623291b4790dceb2186a96cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   TilemapPrefab: {fileID: 100000, guid: b6fe9f3bf5367f749954f4edb1bcae81, type: 2}
-  Map: {fileID: 0}
+  TmxAsset: {fileID: 0}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

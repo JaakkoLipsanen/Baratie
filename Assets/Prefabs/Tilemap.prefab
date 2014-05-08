@@ -65,10 +65,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 100000}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c106329074ebd344aacb4e6428830957, type: 3}
+  m_Script: {fileID: 1096846948, guid: a379e97a623291b4790dceb2186a96cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   MeshMaterial: {fileID: 10754, guid: 0000000000000000e000000000000000, type: 0}
+  CreateColliders: 1
+  TilemapData:
+    _tiles: 
+    _width: 0
+    _height: 0
+    _name: 
+    _propertyKeys: []
+    _propertyValues: []
+  TilesetManager:
+    _tilesets: []
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

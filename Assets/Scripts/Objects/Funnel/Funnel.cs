@@ -1,22 +1,10 @@
-﻿using System.Collections.Generic;
-using Flai;
+﻿using Flai;
 using Flai.Diagnostics;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Scripts.Objects
 {
-   /* [RequireComponent(typeof(Rigidbody2D))]
-    public class GravityState : FlaiScript
-    {
-        private VerticalDirection _gravityDirection = VerticalDirection.Down;
-        private bool _useGravity;
-
-        public VerticalDirection GravityDirection
-        {
-            get { return _gravityDirection; }
-        }
-    } */
-        
     [RequireComponent(typeof(SpriteRenderer))]
     [ExecuteInEditMode]
     public class Funnel : FlaiScript

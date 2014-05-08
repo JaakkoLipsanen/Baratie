@@ -1,12 +1,12 @@
-﻿using Assets.Scripts.Player;
-using Flai.Editor;
+﻿using Flai.Editor;
+using Flai.Scripts.Character;
 using UnityEditor;
 using UnityEngine;
 
 namespace Assets.Editor.Inspectors
 {
-    [CustomEditor(typeof(PlayerController))]
-    public class PlayerControllerInspector : InspectorBase<PlayerController>
+    [CustomEditor(typeof(CharacterController2D))]
+    public class PlayerControllerInspector : InspectorBase<CharacterController2D>
     {
         public override void OnInspectorGUI()
         {

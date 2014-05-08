@@ -287,8 +287,8 @@ namespace Assets.Scripts.Player
                 return;
             }
 
-            this.CurrentPlayer.Controller.IsControllingEnabled = true;
-            this.NonCurrentPlayer.Controller.IsControllingEnabled = false;
+            this.CurrentPlayer.Input.IsControllingEnabled = true;
+            this.NonCurrentPlayer.Input.IsControllingEnabled = false;
 
             this.CurrentPlayer.IsInForeground = true;
             this.NonCurrentPlayer.IsInForeground = false;

@@ -1,5 +1,6 @@
-﻿using Assets.Scripts.General;
+﻿
 // ReSharper disable ConvertConditionalTernaryToNullCoalescing
+using Assets.Scripts.General;
 using Flai;
 using Flai.Scripts;
 using UnityEngine;

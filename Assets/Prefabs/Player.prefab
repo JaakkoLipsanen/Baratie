@@ -11,9 +11,10 @@ GameObject:
   - 212: {fileID: 21200000}
   - 50: {fileID: 5000000}
   - 61: {fileID: 6100000}
-  - 114: {fileID: 11400000}
   - 114: {fileID: 11400002}
   - 114: {fileID: 11400004}
+  - 114: {fileID: 11400006}
+  - 114: {fileID: 11400008}
   m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
@@ -86,25 +87,6 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_Size: {x: .959999979, y: 1.96000004}
   m_Center: {x: 0, y: 0}
---- !u!114 &11400000
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100000}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1821f2153b90ebb42b2eeb4f91a8b66c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ShowDebug: 0
-  IsControllingEnabled: 1
-  HorizontalSpeedDrag: .850000024
-  AccelerationPower: 20
-  SpeedAirDrag: 1
-  Speed: 10
-  JumpForce: 810
-  JumpTimeBias: .100000001
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -127,6 +109,47 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 135fa417b75bfee4381c407b487d24eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &11400006
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1673588616, guid: a379e97a623291b4790dceb2186a96cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HorizontalSpeedDrag: .850000024
+  AccelerationPower: 20
+  AirSpeedDrag: 1
+  Speed: 10
+  JumpForce: 810
+  JumpTimeBias: .100000001
+  SetFacingDirectionAutomatically: 1
+  SetGroundDirectionAutomatically: 1
+  IgnoredLayers:
+  - Player
+  - PlayerHoldingCrate
+  - Funnel
+--- !u!114 &11400008
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -455745744, guid: a379e97a623291b4790dceb2186a96cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsControllingEnabled: 1
+  MoveLeftButton: Move Left
+  MoveLeftAlternativeKey: 97
+  MoveRightButton: Move Right
+  MoveRightAlternativeKey: 100
+  JumpButton: Jump
+  JumpAlternativeKey: 32
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -1,5 +1,4 @@
-﻿using System.Runtime.InteropServices;
-using Assets.Scripts.General;
+﻿using Assets.Scripts.General;
 using Flai;
 using Flai.Diagnostics;
 using UnityEngine;
@@ -28,21 +27,11 @@ namespace Assets.Scripts.Player
             }
 
             var currentPlayer = _playerManager.CurrentPlayer;
-            var playerController = currentPlayer.Controller;
-
             this.Parent = currentPlayer.GameObject;
             this.LocalPosition2D = Vector2f.Up * Tile.Size * 1.5f;
 
             this.Scale2D = Vector2f.Abs(this.Scale2D);
             this.Rotation = Vector3.zero;
-            if (playerController.GroundDirection == VerticalDirection.Up)
-            {
-              //  this.Scale2D = new Vector2f(this.Scale2D.X, -FlaiMath.Abs(this.Scale2D.Y));
-            }
-            else
-            {
-               // this.Scale2D = new Vector2f(this.Scale2D.X, FlaiMath.Abs(this.Scale2D.Y));
-            }
 
             this.renderer.enabled = _playerManager.IsSeparated;
         }

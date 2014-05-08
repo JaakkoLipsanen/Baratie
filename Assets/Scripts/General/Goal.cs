@@ -1,9 +1,9 @@
-﻿using System.Linq;
-using Assets.Scripts.Objects;
+﻿using Assets.Scripts.Objects;
 using Assets.Scripts.Player;
 using Flai;
 using Flai.Scene;
-using Flai.Tween;
+using Flai.Tweening;
+using System.Linq;
 using UnityEngine;
 
 namespace Assets.Scripts.General

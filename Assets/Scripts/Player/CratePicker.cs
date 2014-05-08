@@ -5,6 +5,7 @@ using Flai.Diagnostics;
 using Flai.Input;
 using Flai.Scene;
 using System.Linq;
+using Flai.Scripts.Character;
 using UnityEngine;
 
 namespace Assets.Scripts.Player
@@ -19,7 +20,7 @@ namespace Assets.Scripts.Player
     {
         private static readonly LayerMaskF CrateCollisionLayerMask = LayerMaskF.FromNames("Crates", "Player", "PlayerHoldingCrate", "Funnel", "Keys").Inverse;
         private Crate _currentlyPickingCrate;
-        private PlayerController _controller;
+        private CharacterController2D _controller;
         private PlayerManager _playerManager;
 
         private Vector2f _currentCrateOffset;
@@ -42,7 +43,7 @@ namespace Assets.Scripts.Player
 
         protected override void Awake()
         {
-            _controller = this.Get<PlayerController>();
+            _controller = this.Get<CharacterController2D>();
             _playerManager = Scene.FindOfType<PlayerManager>();
         }
 
@@ -198,8 +199,6 @@ namespace Assets.Scripts.Player
             // draw the pick area
             FlaiDebug.DrawRectangleOutlines(target, ColorF.White, 0.5f);
         }
-
-       
 
         private void OnIsPickingChanged()
         {

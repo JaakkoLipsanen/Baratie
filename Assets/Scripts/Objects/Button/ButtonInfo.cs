@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using Assets.Scripts.General;
-using Flai;
+﻿using Flai;
 using Flai.Diagnostics;
+using Flai.Scripts.Responses;
+using System.Collections.Generic;
 
 namespace Assets.Scripts.Objects
 {
@@ -37,7 +37,7 @@ namespace Assets.Scripts.Objects
                     {
                         foreach (Response response in this.Responses)
                         {
-                            response.ExecuteOn(null);
+                            response.Execute();
                         }
                     }
                 }
@@ -48,7 +48,7 @@ namespace Assets.Scripts.Objects
                     {
                         foreach (Response response in this.Responses)
                         {
-                            response.ExecuteOff(null);
+                            response.ExecuteOff();
                         }
                     }
                 }

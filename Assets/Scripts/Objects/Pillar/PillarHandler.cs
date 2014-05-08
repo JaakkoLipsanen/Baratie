@@ -1,8 +1,7 @@
-﻿using Flai.Scripts;
-// ReSharper disable ConvertConditionalTernaryToNullCoalescing
-using Assets.Scripts.General;
+﻿// ReSharper disable ConvertConditionalTernaryToNullCoalescing
 using Flai;
 using Flai.Diagnostics;
+using Flai.Scripts.Responses;
 using UnityEngine;
 
 namespace Assets.Scripts.Objects
@@ -84,16 +83,18 @@ namespace Assets.Scripts.Objects
          // this.Get<OnTopMover>().ForceUpdate(); // first of all, the OnTopMover is in a child. second of all, this isn't probably needesd
         }
 
-        public override void ExecuteOn(object context)
+        protected override bool ExecuteInner()
         {
             FlaiDebug.LogWithTypeTag<PillarHandler>("On");
             _isExecutingOn = true;
+            return true;
         }
 
-        public override void ExecuteOff(object context)
+        protected override bool ExecuteOffInner()
         {
             FlaiDebug.LogWithTypeTag<PillarHandler>("Off");
             _isExecutingOn = false;
+            return true;
         }
 
         public void RefreshFromInspector()
