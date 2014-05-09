@@ -37,7 +37,12 @@ namespace Assets.Scripts.Objects
                     {
                         foreach (Response response in this.Responses)
                         {
-                            response.Execute();
+                            if (response == null)
+                            {
+                                continue;
+                            }
+
+                            response.ExecuteOn();
                         }
                     }
                 }
@@ -48,6 +53,11 @@ namespace Assets.Scripts.Objects
                     {
                         foreach (Response response in this.Responses)
                         {
+                            if (response == null)
+                            {
+                                continue;
+                            }
+
                             response.ExecuteOff();
                         }
                     }

@@ -83,7 +83,7 @@ namespace Assets.Scripts.Objects
          // this.Get<OnTopMover>().ForceUpdate(); // first of all, the OnTopMover is in a child. second of all, this isn't probably needesd
         }
 
-        protected override bool ExecuteInner()
+        protected override bool ExecuteOnInner()
         {
             FlaiDebug.LogWithTypeTag<PillarHandler>("On");
             _isExecutingOn = true;
