@@ -5,6 +5,7 @@ using Flai;
 using Flai.Diagnostics;
 using Flai.Input;
 using System;
+using Flai.Inspector;
 using Flai.Scene;
 using UnityEngine;
 
@@ -145,7 +146,6 @@ namespace Assets.Scripts.Player
 
         private void ChangeMode()
         {
-            _playerArrow.SetParent(null);
             if (this.IsSeparated)
             {
                 this.Combine();
@@ -162,10 +162,15 @@ namespace Assets.Scripts.Player
 
         #region Split & Combine
 
-        private void Combine()
+        [ShowInInspector]
+        public void Combine()
         {
-            Ensure.True(this.IsSeparated);
+            if (!this.IsSeparated)
+            {
+                return;
+            }
 
+            _playerArrow.SetParent(null);
             _combinedPlayer = this.CreatePlayer(this.CurrentPlayer.Position2D, "Combined Player");
             _combinedPlayer.Controller.FacingDirection = this.CurrentPlayer.Controller.FacingDirection;
             _combinedPlayer.Velocity = this.CurrentPlayer.Velocity;
@@ -186,10 +191,15 @@ namespace Assets.Scripts.Player
             Scene.DestroyGameObject(ref _blackPlayer);
         }
 
-        private void Split()
+        [ShowInInspector]
+        public void Split()
         {
-            Ensure.True(!this.IsSeparated);
+            if (this.IsSeparated)
+            {
+                return;
+            }
 
+            _playerArrow.SetParent(null);
             _currentGameDimension = GameDimension.Black; // always black after splitted: looks good. think more about this later
             HorizontalDirection currentDirection = _combinedPlayer.Controller.FacingDirection;
             _blackPlayer = this.CreateSplittedPlayer(GameDimension.Black, "Black Player", currentDirection);
@@ -253,7 +263,6 @@ namespace Assets.Scripts.Player
             Vector2f defaultSplitAmount = Vector2f.UnitX * Tile.Size * 1.5f;
             if (this.CurrentPlayer.Controller.FacingDirection == HorizontalDirection.Right)
             {
-                FlaiDebug.Log("change");
                 defaultSplitAmount *= -1; // split amount is to left nows
             }
 
