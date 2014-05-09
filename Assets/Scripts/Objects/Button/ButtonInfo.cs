@@ -31,39 +31,25 @@ namespace Assets.Scripts.Objects
         {
             if (_wasPressed != this.ButtonState.IsPressed)
             {
-                if (this.ButtonState.IsPressed)
+                foreach (Response response in this.Responses)
                 {
-                    _wasPressed = true;
-                    if (this.HasResponses)
+                    if (response == null)
                     {
-                        foreach (Response response in this.Responses)
-                        {
-                            if (response == null)
-                            {
-                                continue;
-                            }
-
-                            response.ExecuteOn();
-                        }
+                        continue;
                     }
-                }
-                else
-                {
-                    _wasPressed = false;
-                    if (this.HasResponses)
-                    {
-                        foreach (Response response in this.Responses)
-                        {
-                            if (response == null)
-                            {
-                                continue;
-                            }
 
-                            response.ExecuteOff();
-                        }
+                    // toggle if possible
+                    if (response.IsToggleable)
+                    {
+                        response.ExecuteToggle();
+                    }
+                    else
+                    {
+                        response.Execute(this.ButtonState.IsPressed);
                     }
                 }
 
+                _wasPressed = this.ButtonState.IsPressed;
                 if (!this.HasResponses)
                 {
                     FlaiDebug.LogWarningWithTypeTag<ButtonInfo>("Button doesn't have any responses!", this);

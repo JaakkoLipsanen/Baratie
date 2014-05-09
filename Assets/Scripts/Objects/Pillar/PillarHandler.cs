@@ -1,12 +1,11 @@
 ﻿// ReSharper disable ConvertConditionalTernaryToNullCoalescing
 using Flai;
-using Flai.Diagnostics;
 using Flai.Scripts.Responses;
 using UnityEngine;
 
 namespace Assets.Scripts.Objects
 {
-    public class PillarHandler : Response
+    public class PillarHandler : ToggleableResponse
     {
         private const float DefaultOffScale = 0.6f;
 
@@ -85,15 +84,19 @@ namespace Assets.Scripts.Objects
 
         protected override bool ExecuteOnInner()
         {
-            FlaiDebug.LogWithTypeTag<PillarHandler>("On");
             _isExecutingOn = true;
             return true;
         }
 
         protected override bool ExecuteOffInner()
         {
-            FlaiDebug.LogWithTypeTag<PillarHandler>("Off");
             _isExecutingOn = false;
+            return true;
+        }
+
+        protected override bool ExecuteToggleInner()
+        {
+            _isExecutingOn = !_isExecutingOn;
             return true;
         }
 
