@@ -13,7 +13,21 @@ namespace Assets.Scripts.Player
         private GravityState _gravityState;
         public override VerticalDirection GroundDirection
         {
-            get { return (VerticalDirection)((int)_gravityState.GravityDirection * FlaiMath.Sign(-Physics2D.gravity.y)); }
+            get
+            {
+                VerticalDirection direction = VerticalDirection.Down;
+                if (_gravityState != null)
+                {
+                    direction = _gravityState.GravityDirection;
+                }
+
+                if (Physics2D.gravity.y > 0)
+                {
+                    direction = direction.Opposite();
+                }
+
+                return direction;
+            }
         }
 
         protected override void Awake()

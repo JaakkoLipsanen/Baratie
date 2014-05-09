@@ -1,4 +1,5 @@
-﻿using Flai;
+﻿using Assets.Scripts.Objects.Button;
+using Flai;
 using Flai.Diagnostics;
 using Flai.Scripts.Responses;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ namespace Assets.Scripts.Objects
     public class ButtonInfo : FlaiScript
     {
         private bool _wasPressed = false;
-        private ButtonPresser _buttonPresser;
+        private IButtonState _buttonState;
         public List<Response> Responses = new List<Response>();
 
         public bool HasResponses
@@ -16,21 +17,21 @@ namespace Assets.Scripts.Objects
             get { return this.Responses != null && this.Responses.Count > 0; }
         }
 
-        protected override void Awake()
+        public IButtonState ButtonState
         {
-            _buttonPresser = this.GetComponentInChildren<ButtonPresser>();
+            get { return _buttonState ?? (_buttonState = (IButtonState) this.GetComponentInChildren(typeof (IButtonState))); }
         }
 
         protected override void Start()
         {
-            _wasPressed = _buttonPresser.IsPressed;
+            _wasPressed = this.ButtonState.IsPressed;
         }
 
         protected override void LateUpdate()
         {
-            if (_wasPressed != _buttonPresser.IsPressed)
+            if (_wasPressed != this.ButtonState.IsPressed)
             {
-                if (_buttonPresser.IsPressed)
+                if (this.ButtonState.IsPressed)
                 {
                     _wasPressed = true;
                     if (this.HasResponses)

@@ -18,7 +18,7 @@ namespace Assets.Scripts.Player
 
     public class CratePicker : FlaiScript
     {
-        private static readonly LayerMaskF CrateCollisionLayerMask = LayerMaskF.FromNames("Crates", "Player", "PlayerHoldingCrate", "Funnel", "Keys").Inverse;
+        private static readonly LayerMaskF IgnoreMask = LayerMaskF.FromNames("Crates", "Player", "PlayerHoldingCrate", "Funnel", "Keys").Inverse;
         private Crate _currentlyPickingCrate;
         private CharacterController2D _controller;
         private PlayerManager _playerManager;
@@ -117,7 +117,7 @@ namespace Assets.Scripts.Player
             for (float fraction = 0; fraction <= 1; fraction += ResolveStep)
             {
                 RectangleF newArea = crateArea.AsOffsetted(axis.ToUnitVector() * changeAmount * fraction);
-                if (Physics2D.OverlapArea(newArea.TopLeft, newArea.BottomRight, CrateCollisionLayerMask) == stopWhen)
+                if (Physics2D.OverlapArea(newArea.TopLeft, newArea.BottomRight, IgnoreMask) == stopWhen)
                 {
                     return _currentCrateOffset += axis.ToUnitVector() * changeAmount * fraction;
                 }
@@ -175,9 +175,8 @@ namespace Assets.Scripts.Player
             var crate = 
                 crates.FirstOrDefault(c =>
                 {
-                    var rc = Physics2D.Linecast(this.Position2D, c.Position2D, CrateCollisionLayerMask);
-                    return c.collider2D.GetBoundsHack().Intersects(target) &&
-                           !rc;
+                    var rc = Physics2D.Linecast(this.Position2D, c.Position2D, CratePicker.IgnoreMask);
+                    return c.collider2D.GetBoundsHack().Intersects(target) && !rc;
                 });
 
             if (crate != null)

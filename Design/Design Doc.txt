@@ -6,7 +6,6 @@
    
 -- TODO OMINAISUUDET -- (semisti järjestyksessä)
 
-- Portal 2:sta tuttu "Excursion Funnel"/gravity spike. voi viedä pelaajia tai crateja. voi laittaa nappiin kiinni et aktivioituu kun nappi painettu
 - Toggle Button: mikähän ois paras tapa. 
   - Tapa 1: vähän niinkun 1x2 tile, jossa vasen ja oikea puoli on keskellä pieni valkonen nappi joka togglea toisen kun menee.
   - Tapa 2: "mekaaninen", kulmassa oleva toggle nappi. mieti jotai real life. vaikka valo-katkasija
@@ -16,7 +15,6 @@
    - Jos on gravity switchin päällä, niin oma gravity ei voi muuttua toisen gravity switchin voimasta
 
 - Time Stop Spot (buttoneita vähän niinkun)
-- Portal pelistä tuttuja "alueita"/kalvoja/ovia jotka tuhoaa cubet. tässä tapauksessa tuhoaa splittauksen. Tää ehk vois toimii buttonien kaa (button pohjas -> deaktiivinen)
 
 - Spiket
 - "Liukualusta"/Likuhihna
@@ -36,6 +34,8 @@
 - Cubet (voi hyppää päälle, voi laittaa nappien päälle)
 - Avain -> Goal(/Ovi????)
 - Multi Button Response
+- Funnel
+- Separation Field
  
  ---- TODO BUGIT ----
  - Kun tyyppi kuolee (esim pillar tippuu päälle tai myöhemmin piikit jne) -> yhistys/restart
