@@ -30,6 +30,12 @@ namespace Assets.Scripts.General
             }
         }
 
+        [ShowInInspector]
+        public VerticalDirection RealGravityDirection
+        {
+            get { return Physics2D.gravity.y < 0 ? this.GravityDirection : this.GravityDirection.Opposite(); }
+        }
+
         [ShowInInspector(IsEditableWhenNotPlaying = true)]
         public bool UseGravity
         {

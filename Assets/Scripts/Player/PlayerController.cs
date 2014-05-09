@@ -28,11 +28,24 @@ namespace Assets.Scripts.Player
             var funnel = _gravityState.Tag as Funnel;
             if (funnel != null && funnel.IsInFunnel(this.GameObject))
             {
-                if (funnel.Direction.ToAxis() == Axis.Horizontal)
+                if (funnel.Direction.ToAxis() != Axis.Horizontal)
+                {
+                    return;
+                }
+
+                const float FunnelSpeedMultiplier = 5;
+                if (_gravityState.RealGravityDirection == VerticalDirection.Down)
                 {
                     if (FlaiInput.IsButtonOrKeyPressed("Down", KeyCode.S))
                     {
-                        this.rigidbody2D.velocity -= Vector2f.UnitY.ToVector2() * this.Speed * 5f * Time.deltaTime;
+                        this.rigidbody2D.velocity -= Vector2f.UnitY.ToVector2() * this.Speed * FunnelSpeedMultiplier * Time.deltaTime;
+                    }
+                }
+                else if (_gravityState.RealGravityDirection == VerticalDirection.Up)
+                {
+                    if (FlaiInput.IsButtonOrKeyPressed("Up", KeyCode.W))
+                    {
+                        this.rigidbody2D.velocity += Vector2f.UnitY.ToVector2() * this.Speed * FunnelSpeedMultiplier * Time.deltaTime;
                     }
                 }
             }
@@ -44,16 +57,16 @@ namespace Assets.Scripts.Player
             var funnel = _gravityState.Tag as Funnel;
             if (funnel != null && funnel.IsInFunnel(this.GameObject))
             {
-                if (funnel.Direction == Direction2D.Left && baseForce > 0)
+                if (funnel.CurrentDirection == Direction2D.Left && baseForce > 0)
                 {
                     baseForce = 0;
                 }
-                else if (funnel.Direction == Direction2D.Right && baseForce < 0)
+                else if (funnel.CurrentDirection == Direction2D.Right && baseForce < 0)
                 {
                     baseForce = 0;
                 }
 
-                baseForce *= 0.5f;
+                baseForce *= 0.25f;
             }
 
             return baseForce;

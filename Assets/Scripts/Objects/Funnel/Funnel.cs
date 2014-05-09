@@ -30,6 +30,12 @@ namespace Assets.Scripts.Objects
             set { this.Rotation2D = value.ToDegrees(); }
         }
 
+        [ShowInInspector]
+        public Direction2D CurrentDirection
+        {
+            get { return this.IsReversed ? this.Direction.Opposite() : this.Direction; }
+        }
+
         public bool IsInFunnel(GameObject go)
         {
             return _gameObjectsOnFunnel.Contains(go);
