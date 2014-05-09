@@ -1,4 +1,5 @@
-﻿using Flai;
+﻿using Assets.Scripts.General;
+using Flai;
 using Flai.Diagnostics;
 using UnityEngine;
 
@@ -19,9 +20,9 @@ namespace Assets.Scripts.Objects
 
         protected override void Update()
         {
-            if (!this.IsPicked)
+            if (!this.IsPicked && this.Get<GravityState>().UseGravity)
             {
-                // when not picked, reduce the x axis
+                // when not picked and gravity is on (not in funnel) , reduce the x axis
                 this.rigidbody2D.velocity *= Vector2f.UnitY;
             }
         }

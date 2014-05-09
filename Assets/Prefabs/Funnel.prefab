@@ -9,12 +9,10 @@ GameObject:
   m_Component:
   - 4: {fileID: 400000}
   - 212: {fileID: 21200000}
-  - 61: {fileID: 6100000}
-  - 50: {fileID: 5000000}
   - 114: {fileID: 11400000}
-  - 114: {fileID: 11400002}
-  m_Layer: 13
-  m_Name: Crate
+  - 61: {fileID: 6100000}
+  m_Layer: 15
+  m_Name: Funnel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -26,26 +24,11 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 12.4642611, y: 19.6647453, z: 0}
-  m_LocalScale: {x: 1.25, y: 1.25, z: 1}
+  m_LocalRotation: {x: 0, y: 0, z: .707106829, w: .707106829}
+  m_LocalPosition: {x: 18.8704033, y: .999085426, z: 0}
+  m_LocalScale: {x: .343764305, y: .100000001, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
---- !u!50 &5000000
-Rigidbody2D:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100000}
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: .0500000007
-  m_GravityScale: 1
-  m_FixedAngle: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 1
 --- !u!61 &6100000
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -54,9 +37,9 @@ BoxCollider2D:
   m_GameObject: {fileID: 100000}
   m_Enabled: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Size: {x: .959999979, y: .959999979}
-  m_Center: {x: 0, y: 0}
+  m_IsTrigger: 1
+  m_Size: {x: 64, y: 20}
+  m_Center: {x: 32, y: 0}
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -65,23 +48,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 100000}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0ae3193f7b6af9345b22272cc01635e7, type: 3}
+  m_Script: {fileID: 11500000, guid: ca848564b7b005246a5ffb12ff87ce49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &11400002
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100000}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2501b85e00b80ef4096e8594c78bfc32, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _gravityDirection: -1
-  _useGravity: 1
-  _gravityScale: 1
+  Speed: 4
+  Thickness: 2
+  IsReversed: 0
+  IsOn: 1
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -101,10 +74,10 @@ SpriteRenderer:
   m_LightProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
   m_SortingLayer: 0
-  m_SortingOrder: -10
+  m_SortingOrder: 0
   m_SortingLayerID: 0
-  m_Sprite: {fileID: 21300000, guid: f37ab215ad7323144a5445471bf77871, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 87e550208e72aac42a917ccec3d5e8da, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: .674509823}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

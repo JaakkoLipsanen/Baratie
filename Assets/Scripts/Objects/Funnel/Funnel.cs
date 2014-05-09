@@ -2,11 +2,12 @@
 using Flai;
 using Flai.Diagnostics;
 using System.Collections.Generic;
+using Flai.Inspector;
 using UnityEngine;
 
 namespace Assets.Scripts.Objects
 {
-    [ExecuteInEditMode] 
+    [ExecuteInEditMode]
     [RequireComponent(typeof(SpriteRenderer))]
     public class Funnel : FlaiScript
     {
@@ -16,6 +17,18 @@ namespace Assets.Scripts.Objects
         public float Thickness = 2f; // in units
         public bool IsReversed = false;
         public bool IsOn = true;
+
+        [ShowInInspector(IsEditableWhenNotPlaying = true)]
+        public Direction2D Direction
+        {
+            get
+            {
+                var direction = DirectionHelper.FromRotation(this.Rotation2D);
+                this.Rotation2D = direction.ToDegrees(); // make sure that rotation is always correct (inspector calls this getter)
+                return direction;
+            }
+            set { this.Rotation2D = value.ToDegrees(); }
+        }
 
         protected override void Update()
         {
@@ -30,19 +43,9 @@ namespace Assets.Scripts.Objects
 
         private void UpdateScale()
         {
-            const float PositionBias = 0.01f;
-            LayerMaskF layerMask = LayerMaskF.FromNames("Funnel", "Crates", "Player", "PlayerHoldingCrate", "Keys").Inverse;
-            RaycastHit2D hit = Physics2D.Raycast(this.Position2D + this.RotationDirection2D * PositionBias, this.RotationDirection2D, float.PositiveInfinity, layerMask);
-            if (!hit)
-            {
-                FlaiDebug.LogErrorWithTypeTag<Funnel>("No raycast hit");
-                return;
-            }
-
-            float distance = hit.fraction + PositionBias;
+            float distance = this.CalculateHitDistance();
             this.Transform.SetScaleX(1 / this.SpriteRenderer.sprite.textureRect.width * distance);
-            this.Transform.SetScaleY(1 / this.SpriteRenderer.sprite.textureRect.height * Thickness);
-            FlaiDebug.DrawLine(this.Position2D, hit.point, ColorF.Red);
+            this.Transform.SetScaleY(1 / this.SpriteRenderer.sprite.textureRect.height * this.Thickness);
         }
 
         private void MoveObjects()
@@ -52,14 +55,20 @@ namespace Assets.Scripts.Objects
                 this.RemoveAll();
                 return;
             }
-        
+
             this.RemoveGameObjectsOutside();
             foreach (GameObject go in _gameObjectsOnFunnel)
             {
-                go.AddPosition2D(this.RotationDirection2D * this.Speed * Time.deltaTime * (this.IsReversed ? -1 : 1));
-                if (go.rigidbody2D != null)
+                if (this.Direction == Direction2D.Up || this.Direction == Direction2D.Down)
                 {
-                    go.rigidbody2D.velocity *= 0.9f;
+                    var targetVelocity = new Vector2((this.Position2D.X - go.GetPosition2D().X) * this.Speed * 4f, this.Direction.ToUnitVector().Y * this.Speed * (this.IsReversed ? -1 : 1));
+                    go.rigidbody2D.velocity = Vector2f.Lerp(go.rigidbody2D.velocity, targetVelocity, Time.deltaTime * 2);
+                }
+                else // Left or Right
+                {
+
+                    var targetVelocity = new Vector2(this.Direction.ToUnitVector().X * this.Speed * (this.IsReversed ? -1 : 1), (this.Position2D.Y - go.GetPosition2D().Y) * this.Speed * 4f);
+                    go.rigidbody2D.velocity = Vector2f.Lerp(go.rigidbody2D.velocity, targetVelocity, Time.deltaTime * 2);
                 }
             }
         }
@@ -108,6 +117,29 @@ namespace Assets.Scripts.Objects
 
                 return remove;
             });
+        }
+
+        private float CalculateHitDistance()
+        {
+            const float PositionBias = 0.01f;
+            LayerMaskF layerMask = LayerMaskF.FromNames("Funnel", "Crates", "Player", "PlayerHoldingCrate", "Keys").Inverse;
+            RaycastHit2D hit = Physics2D.Raycast(this.Position2D + this.RotationDirection2D * PositionBias, this.RotationDirection2D, float.PositiveInfinity, layerMask);
+            if (!hit)
+            {
+                FlaiDebug.LogErrorWithTypeTag<Funnel>("No raycast hit");
+                return 0f;
+            }
+
+
+            return hit.fraction + PositionBias;
+        }
+
+        [ShowInInspector]
+        private void Flip()
+        {
+            float distance = this.CalculateHitDistance();
+            this.Position2D += this.Direction.ToUnitVector() * distance;
+            this.Direction = this.Direction.Opposite();
         }
     }
 }

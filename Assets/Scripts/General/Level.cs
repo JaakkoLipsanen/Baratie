@@ -1,4 +1,5 @@
-﻿using Flai.Tilemap;
+﻿using Flai;
+using Flai.Tilemap;
 using UnityEngine;
 
 namespace Assets.Scripts.General
@@ -9,11 +10,16 @@ namespace Assets.Scripts.General
         public const float SizeInTexture = 32;
     }
 
-    public class Level : MonoBehaviour
+    public class Level : FlaiScript
     {
         public TilemapContainer TilemapContainer
         {
             get { return this.GetComponentInChildren<TilemapContainer>(); }
+        }
+
+        protected override void Awake()
+        {
+            Physics2D.gravity = -Vector2f.Abs(Physics2D.gravity);
         }
     }
 }

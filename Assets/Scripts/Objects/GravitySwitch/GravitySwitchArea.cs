@@ -1,4 +1,5 @@
-﻿using Flai;
+﻿using Assets.Scripts.General;
+using Flai;
 using UnityEngine;
 
 namespace Assets.Scripts.Objects
@@ -22,7 +23,7 @@ namespace Assets.Scripts.Objects
 
             Physics2D.gravity *= - 1;
             _currentGameObjectInArea = other.gameObject;
-            _currentGameObjectInArea.rigidbody2D.gravityScale *= -1;
+            _currentGameObjectInArea.Get<GravityState>().FlipGravityDirection();
             _isOn = true;
         }
 
@@ -31,7 +32,7 @@ namespace Assets.Scripts.Objects
             if (_isOn && _currentGameObjectInArea == other.gameObject)
             {
                 Physics2D.gravity *= -1;
-                _currentGameObjectInArea.rigidbody2D.gravityScale *= -1;
+                _currentGameObjectInArea.Get<GravityState>().FlipGravityDirection();
                 _currentGameObjectInArea = null;
                 _isOn = false;
             }
@@ -44,7 +45,7 @@ namespace Assets.Scripts.Objects
                 Physics2D.gravity *= -1;
                 if (_currentGameObjectInArea != null)
                 {
-                    _currentGameObjectInArea.rigidbody2D.gravityScale *= -1;
+                    _currentGameObjectInArea.Get<GravityState>().FlipGravityDirection();
                 }
 
                 _currentGameObjectInArea = null;
