@@ -30,6 +30,11 @@ namespace Assets.Scripts.Objects
             set { this.Rotation2D = value.ToDegrees(); }
         }
 
+        public bool IsInFunnel(GameObject go)
+        {
+            return _gameObjectsOnFunnel.Contains(go);
+        }
+
         protected override void Update()
         {
             this.renderer.enabled = this.IsOn;
@@ -80,6 +85,7 @@ namespace Assets.Scripts.Objects
             {
                 _gameObjectsOnFunnel.Add(gravityState.GameObject);
                 gravityState.UseGravity = false;
+                gravityState.Tag = this;
             }
         }
 
@@ -87,8 +93,7 @@ namespace Assets.Scripts.Objects
         {
             if (_gameObjectsOnFunnel.Remove(other.gameObject))
             {
-                var gravityState = other.TryGet<GravityState>();
-                gravityState.UseGravity = true;
+                this.OnRemoveGameObject(other.gameObject);
             }
         }
 
@@ -98,7 +103,7 @@ namespace Assets.Scripts.Objects
             {
                 if (go != null)
                 {
-                    go.Get<GravityState>().UseGravity = true;
+                    this.OnRemoveGameObject(go);
                 }
             }
 
@@ -112,7 +117,7 @@ namespace Assets.Scripts.Objects
                 bool remove = (go == null) || !PhysicsHelper.Intersects(go.collider2D, this.collider2D);
                 if (remove && go != null)
                 {
-                    go.Get<GravityState>().UseGravity = true;
+                    this.OnRemoveGameObject(go);
                 }
 
                 return remove;
@@ -130,7 +135,6 @@ namespace Assets.Scripts.Objects
                 return 0f;
             }
 
-
             return hit.fraction + PositionBias;
         }
 
@@ -140,6 +144,16 @@ namespace Assets.Scripts.Objects
             float distance = this.CalculateHitDistance();
             this.Position2D += this.Direction.ToUnitVector() * distance;
             this.Direction = this.Direction.Opposite();
+        }
+
+        private void OnRemoveGameObject(GameObject go)
+        {
+            var gravityState = go.TryGet<GravityState>();
+            gravityState.UseGravity = true;
+            if (gravityState.Tag == this)
+            {
+                gravityState.Tag = null;
+            }
         }
     }
 }

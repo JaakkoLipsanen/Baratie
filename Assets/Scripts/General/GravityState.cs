@@ -64,6 +64,8 @@ namespace Assets.Scripts.General
             this.rigidbody2D.gravityScale = _gravityScale * _gravityDirection.Opposite().ToInt(); // opposite because VerticalDirection.Down is -1
         }
 
+        [ShowInInspector(IsReadOnly = true)]
+        public object Tag { get; set; } // meh... 
         public void FlipGravityDirection()
         {
             this.GravityDirection = this.GravityDirection.Opposite();
