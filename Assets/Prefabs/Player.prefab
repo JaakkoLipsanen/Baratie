@@ -177,6 +177,7 @@ MonoBehaviour:
   - Player
   - PlayerHoldingCrate
   - Funnel
+  - SeparationField
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1
