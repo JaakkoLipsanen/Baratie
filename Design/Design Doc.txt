@@ -3,6 +3,10 @@
 - "Yet another Darklight kopio". 2D peli, ehk room-based. Sulla on tyyppi (oikeet graffat, pikseli varmaan), joka voi jakaa ittens‰ kahteen (musta ja valkonen). 
   Sit s‰ voit miss‰ kohassa vaan "sulattautua yhteen" kummalla tahansa tyypill‰. Sit kans 2 worldi‰ (musta ja valkonen), mut t‰‰ elementti ei oo niin oleellinen kuin se "singleplayer co-op".
   Gameplay normi pl‰tt‰ri tyylist‰, hyppiminen
+  
+- Avaruus setting! Tyyppi avaruus aluksessa, joka on (semi)tyhj‰. Her‰‰ siel, on kujalla. Aluksessa on sellasia "logeja" (think Bioshock) joka v‰h‰n antaa background tietoa mit‰ on tapahtunut jne. Mahollisesti jossain vaiheessa p‰‰henkilˆ on radion kautta yhteydes johonkin toiseen, mut ei ikin tapaa sit‰ (tai sit joku Bioshock 1 tyyppinen betrayal).
+- T‰‰ setting toimii myˆs hyvin esim anti-gravityn kanssa (aluksen gravity vaan k‰‰nnet‰‰n) ja painovoimattoman tilan kanssa (saa hauskoi).
+- Yks plot-point vois ainakin olla se et jossain vaiheessa alus alkaa t‰risee ja selvii, ett‰ alus  "yhdistynyy"/sellain kiinnittyy toiseen alukseen mihin pit‰‰ menn‰ (darklight "fall" alku-loppu homman sais ehk n‰in kans, menee aina toiselle alukselle mis alkaa uudestaam)
    
 -- TODO OMINAISUUDET -- (semisti j‰rjestyksess‰)
 

@@ -141,9 +141,6 @@ MonoBehaviour:
   m_Script: {fileID: 564432141}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gameObject: {fileID: 0}
-  _transform: {fileID: 0}
-  IsPreservingInstance: 0
 --- !u!4 &178027021
 Transform:
   m_ObjectHideFlags: 0

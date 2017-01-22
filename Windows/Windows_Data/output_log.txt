@@ -1,10 +1,10 @@
 Initialize engine version: 4.3.1f1 (cebd4d9b5122)
 GfxDevice: creating device client; threaded=1
 Direct3D:
-    Version:  Direct3D 9.0c [nvd3dum.dll 9.18.13.3523]
+    Version:  Direct3D 9.0c [nvd3dum.dll 21.21.13.6909]
     Renderer: NVIDIA GeForce GTX 460
     Vendor:   NVIDIA
-    VRAM:     971 MB (via DXGI)
+    VRAM:     978 MB (via DXGI)
     Caps:     Shader=30 DepthRT=1 NativeDepth=1 NativeShadow=1 DF16=0 INTZ=1 RAWZ=0 NULL=1 RESZ=0 SlowINTZ=0
 Begin MonoManager ReloadAssembly
 Platform assembly: C:\Koodaus\Unity\Baratie\Windows\Windows_Data\Managed\UnityEngine.dll (this message is harmless)
@@ -15,7 +15,7 @@ Platform assembly: C:\Koodaus\Unity\Baratie\Windows\Windows_Data\Managed\Assembl
 Loading C:\Koodaus\Unity\Baratie\Windows\Windows_Data\Managed\Assembly-UnityScript.dll into Unity Child Domain
 Platform assembly: C:\Koodaus\Unity\Baratie\Windows\Windows_Data\Managed\Flai.Unity.dll (this message is harmless)
 Loading C:\Koodaus\Unity\Baratie\Windows\Windows_Data\Managed\Flai.Unity.dll into Unity Child Domain
-- Completed reload, in  0.095 seconds
+- Completed reload, in  0.054 seconds
 desktop: 2560x1600 60Hz; virtual: 4480x1600 at 0,0
 <RI> Initializing input.
 <RI> Input initialized.
@@ -26,85 +26,57 @@ Platform assembly: C:\Koodaus\Unity\Baratie\Windows\Windows_Data\Managed\Boo.Lan
  
 (Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
 
-UnloadTime: 0.348461 ms
-Unloading 3 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
+UnloadTime: 0.420009 ms
+Unloading 5 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
 
-Unloading 6 unused Assets to reduce memory usage. Loaded Objects now: 302.
-Total: 0.922805 ms (FindLiveObjects: 0.017167 ms CreateObjectMapping: 0.015962 ms MarkObjects: 0.283708 ms  DeleteObjects: 0.046381 ms)
+Unloading 6 unused Assets to reduce memory usage. Loaded Objects now: 363.
+Total: 1.288848 ms (FindLiveObjects: 0.025746 ms CreateObjectMapping: 0.021903 ms MarkObjects: 0.355836 ms  DeleteObjects: 0.089919 ms)
 
-change
- 
-(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
-
-[PlayerManager] Player Mode Changed
- 
-(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
-
-[PlayerManager] Player Changed
- 
-(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
-
-[PlayerManager] Player Changed
- 
-(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
-
-UnloadTime: 0.523143 ms
+UnloadTime: 0.815809 ms
 Unloading 1 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
 
-Unloading 4 unused Assets to reduce memory usage. Loaded Objects now: 333.
-Total: 0.967379 ms (FindLiveObjects: 0.021684 ms CreateObjectMapping: 0.016564 ms MarkObjects: 0.377976 ms  DeleteObjects: 0.023491 ms)
+Unloading 37 unused Assets to reduce memory usage. Loaded Objects now: 202.
+Total: 1.276552 ms (FindLiveObjects: 0.020750 ms CreateObjectMapping: 0.019982 ms MarkObjects: 0.437686 ms  DeleteObjects: 0.065710 ms)
 
-change
+UnloadTime: 0.313566 ms
+Unloading 1 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
+
+Unloading 5 unused Assets to reduce memory usage. Loaded Objects now: 322.
+Total: 1.253495 ms (FindLiveObjects: 0.022672 ms CreateObjectMapping: 0.021519 ms MarkObjects: 0.422315 ms  DeleteObjects: 0.046881 ms)
+
+UnloadTime: 0.486872 ms
+Unloading 1 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
+
+Unloading 34 unused Assets to reduce memory usage. Loaded Objects now: 222.
+Total: 1.336882 ms (FindLiveObjects: 0.021134 ms CreateObjectMapping: 0.021134 ms MarkObjects: 0.492252 ms  DeleteObjects: 0.060715 ms)
+
+[SceneFader] Can't start a new fade. There is already another fade in progress
  
 (Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
 
-[PlayerManager] Player Mode Changed
- 
-(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
-
-[PlayerManager] Player Changed
- 
-(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
-
-[PlayerManager] Player Changed
- 
-(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
-
-[PillarHandler] On
- 
-(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
-
-[PlayerManager] Player Changed
- 
-(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
-
-[PlayerManager] Player Changed
- 
-(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
-
-[PillarHandler] Off
- 
-(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
-
-[PlayerManager] Player Changed
- 
-(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
-
-[PlayerManager] Player Changed
- 
-(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
-
-UnloadTime: 0.427670 ms
+UnloadTime: 0.322404 ms
 Unloading 2 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
 
 Unloading 5 unused Assets to reduce memory usage. Loaded Objects now: 369.
-Total: 1.102908 ms (FindLiveObjects: 0.020178 ms CreateObjectMapping: 0.017769 ms MarkObjects: 0.426164 ms  DeleteObjects: 0.025901 ms)
+Total: 1.330734 ms (FindLiveObjects: 0.028436 ms CreateObjectMapping: 0.022287 ms MarkObjects: 0.469964 ms  DeleteObjects: 0.046881 ms)
 
 change
  
 (Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
 
 [PlayerManager] Player Mode Changed
+ 
+(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
+
+[PillarHandler] On
+ 
+(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
+
+[PillarHandler] Off
+ 
+(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
+
+[PlayerManager] Player Changed
  
 (Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
 
@@ -132,17 +104,9 @@ change
  
 (Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
 
-[PillarHandler] On
- 
-(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
+UnloadTime: 0.378123 ms
+Unloading 2 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
 
-[PlayerManager] Player Changed
- 
-(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
-
-UnloadTime: 0.529769 ms
-Unloading 1 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
-
-Unloading 4 unused Assets to reduce memory usage. Loaded Objects now: 417.
-Total: 1.184527 ms (FindLiveObjects: 0.022889 ms CreateObjectMapping: 0.024997 ms MarkObjects: 0.560790 ms  DeleteObjects: 0.027105 ms)
+Unloading 5 unused Assets to reduce memory usage. Loaded Objects now: 399.
+Total: 0.904192 ms (FindLiveObjects: 0.016523 ms CreateObjectMapping: 0.013449 ms MarkObjects: 0.386577 ms  DeleteObjects: 0.023824 ms)
 
