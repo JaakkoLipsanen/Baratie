@@ -26,8 +26,8 @@ namespace Assets.Scripts.General
 	        if (_keys == null|| _keys.Length == 0)
 	        {
                 _isAllKeysPicked = true;
-                this.Parent.GetChild("Particle Emitter").particleSystem.Simulate(2f);
-                this.Parent.GetChild("Particle Emitter").particleSystem.Play();
+                this.Parent.GetChild("Particle Emitter").GetComponent<ParticleSystem>().Simulate(2f);
+                this.Parent.GetChild("Particle Emitter").GetComponent<ParticleSystem>().Play();
 	        }
 	    }
 
@@ -35,7 +35,7 @@ namespace Assets.Scripts.General
 	    {
 	        if (_keys.All(key => key == null) && !_isAllKeysPicked)
 	        {
-	            this.Parent.GetChild("Particle Emitter").particleSystem.Play();
+	            this.Parent.GetChild("Particle Emitter").GetComponent<ParticleSystem>().Play();
 	            _isAllKeysPicked = true;
 	        }
 	    }

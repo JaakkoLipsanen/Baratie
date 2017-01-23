@@ -43,7 +43,7 @@ namespace Assets.Scripts.Objects
 
         protected override void Update()
         {
-            this.renderer.enabled = this.IsOn;
+            this.GetComponent<Renderer>().enabled = this.IsOn;
         }
 
         protected override void LateUpdate()
@@ -73,13 +73,13 @@ namespace Assets.Scripts.Objects
                 if (this.Direction == Direction2D.Up || this.Direction == Direction2D.Down)
                 {
                     var targetVelocity = new Vector2((this.Position2D.X - go.GetPosition2D().X) * this.Speed * 4f, this.Direction.ToUnitVector().Y * this.Speed * (this.IsReversed ? -1 : 1));
-                    go.rigidbody2D.velocity = Vector2f.Lerp(go.rigidbody2D.velocity, targetVelocity, Time.deltaTime * 2);
+                    go.GetComponent<Rigidbody2D>().velocity = Vector2f.Lerp(go.GetComponent<Rigidbody2D>().velocity, targetVelocity, Time.deltaTime * 2);
                 }
                 else // Left or Right
                 {
 
                     var targetVelocity = new Vector2(this.Direction.ToUnitVector().X * this.Speed * (this.IsReversed ? -1 : 1), (this.Position2D.Y - go.GetPosition2D().Y) * this.Speed * 4f);
-                    go.rigidbody2D.velocity = Vector2f.Lerp(go.rigidbody2D.velocity, targetVelocity, Time.deltaTime * 2);
+                    go.GetComponent<Rigidbody2D>().velocity = Vector2f.Lerp(go.GetComponent<Rigidbody2D>().velocity, targetVelocity, Time.deltaTime * 2);
                 }
             }
         }
@@ -120,7 +120,7 @@ namespace Assets.Scripts.Objects
         {
             _gameObjectsOnFunnel.RemoveWhere(go =>
             {
-                bool remove = (go == null) || !PhysicsHelper.Intersects(go.collider2D, this.collider2D);
+                bool remove = (go == null) || !PhysicsHelper.Intersects(go.GetComponent<Collider2D>(), this.GetComponent<Collider2D>());
                 if (remove && go != null)
                 {
                     this.OnRemoveGameObject(go);

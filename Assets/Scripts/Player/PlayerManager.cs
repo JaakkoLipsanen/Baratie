@@ -225,7 +225,7 @@ namespace Assets.Scripts.Player
         private PlayerInfo CreatePlayer(Vector2 position, string name)
         {
             Ensure.NotNull(this.PlayerPrefab);
-            GameObject player = this.PlayerPrefab.Instantiate(position);
+            GameObject player = this.PlayerPrefab.InstantiateIfNotNull(position);
             player.name = name;
             player.SetParent(this.GameObject);
 
@@ -242,7 +242,7 @@ namespace Assets.Scripts.Player
             }
 
             PlayerInfo player = this.CreatePlayer(finalPosition, name);
-            SpriteRenderer spriteRenderer = (SpriteRenderer)player.renderer;
+            SpriteRenderer spriteRenderer = (SpriteRenderer)player.GetComponent<Renderer>();
             if (gameDimension == GameDimension.Black)
             {
                 spriteRenderer.color = new ColorF(64);
@@ -266,7 +266,7 @@ namespace Assets.Scripts.Player
                 defaultSplitAmount *= -1; // split amount is to left nows
             }
 
-            RectangleF playerArea = this.CurrentPlayer.collider2D.GetBoundsHack().AsInflated(0, -0.01f);
+            RectangleF playerArea = this.CurrentPlayer.GetComponent<Collider2D>().GetBoundsHack().AsInflated(0, -0.01f);
             FlaiDebug.DrawRectangleOutlines(playerArea, ColorF.Blue, 1.5f);
             for (float fractionX = 1f; fractionX >= 0; fractionX -= 0.05f)
             {
@@ -303,7 +303,7 @@ namespace Assets.Scripts.Player
             this.NonCurrentPlayer.IsInForeground = false;
         }
 
-        protected override void OnDrawGizmos()
+        protected void OnDrawGizmos()
         {
             Gizmos.DrawIcon(this.Position, "PlayerManagerGizmo", false);
         }

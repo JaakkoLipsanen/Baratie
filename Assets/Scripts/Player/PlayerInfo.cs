@@ -27,16 +27,16 @@ namespace Assets.Scripts.Player
 
         public Vector2f Velocity
         {
-            get { return this.rigidbody2D.velocity; }
-            set { this.rigidbody2D.velocity = value; }
+            get { return this.GetComponent<UnityEngine.Rigidbody2D>().velocity; }
+            set { this.GetComponent<UnityEngine.Rigidbody2D>().velocity = value; }
         }
 
         public bool IsInForeground
         {
             set
             {
-                this.renderer.sortingOrder = value ? -5 : -10;
-                this.GetChild("Eye").renderer.sortingOrder = value ? -4 : -9;
+                this.GetComponent<UnityEngine.Renderer>().sortingOrder = value ? -5 : -10;
+                this.GetChild("Eye").GetComponent<UnityEngine.Renderer>().sortingOrder = value ? -4 : -9;
             }
         }
     }

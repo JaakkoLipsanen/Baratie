@@ -33,7 +33,7 @@ namespace Assets.Scripts.Player
             this.Scale2D = Vector2f.Abs(this.Scale2D);
             this.Rotation = Vector3.zero;
 
-            this.renderer.enabled = _playerManager.IsSeparated;
+            this.GetComponent<Renderer>().enabled = _playerManager.IsSeparated;
         }
     }
 }

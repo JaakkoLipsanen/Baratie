@@ -18,7 +18,11 @@ namespace Assets.Scripts.Player
 
     public class CratePicker : FlaiScript
     {
-        private static readonly LayerMaskF IgnoreMask = LayerMaskF.FromNames("Crates", "Player", "PlayerHoldingCrate", "Funnel", "Keys").Inverse;
+        private static LayerMaskF IgnoreMask
+        {
+            get { return LayerMaskF.FromNames("Crates", "Player", "PlayerHoldingCrate", "Funnel", "Keys").Inverse; }
+        }
+
         private Crate _currentlyPickingCrate;
         private CharacterController2D _controller;
         private PlayerManager _playerManager;
@@ -88,7 +92,7 @@ namespace Assets.Scripts.Player
         private void ResolveAxis(Axis axis, ResolveDirection resolveDirection)
         {
             _currentlyPickingCrate.SetPosition2D(this.Position2D + _currentCrateOffset);
-            RectangleF crateArea = _currentlyPickingCrate.collider2D.GetBoundsHack();
+            RectangleF crateArea = _currentlyPickingCrate.GetComponent<Collider2D>().GetBoundsHack();
 
             float resolveAmount = (int)resolveDirection;
             if (axis == Axis.Horizontal && resolveDirection == ResolveDirection.Zero)
@@ -169,14 +173,14 @@ namespace Assets.Scripts.Player
 
         private void TryPickUpCrate()
         {
-            RectangleF target = this.collider2D.GetBoundsHack().AsInflated(0.3f, Tile.Size * 0.4f);
+            RectangleF target = this.GetComponent<Collider2D>().GetBoundsHack().AsInflated(0.3f, Tile.Size * 0.4f);
             target.Center += _controller.FacingDirection.ToUnitVector() * target.Width * 0.5f;
             var crates = Scene.FindAllOfType<Crate>().ToSet();
             var crate = 
                 crates.FirstOrDefault(c =>
                 {
                     var rc = Physics2D.Linecast(this.Position2D, c.Position2D, CratePicker.IgnoreMask);
-                    return c.collider2D.GetBoundsHack().Intersects(target) && !rc;
+                    return c.Get<Collider2D>().GetBoundsHack().Intersects(target) && !rc;
                 });
 
             if (crate != null)

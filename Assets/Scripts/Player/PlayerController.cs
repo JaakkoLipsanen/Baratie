@@ -52,14 +52,14 @@ namespace Assets.Scripts.Player
                 {
                     if (FlaiInput.IsButtonOrKeyPressed("Down", KeyCode.S))
                     {
-                        this.rigidbody2D.velocity -= Vector2f.UnitY.ToVector2() * this.Speed * FunnelSpeedMultiplier * Time.deltaTime;
+                        this.GetComponent<Rigidbody2D>().velocity -= Vector2f.UnitY.ToVector2() * this.Speed * FunnelSpeedMultiplier * Time.deltaTime;
                     }
                 }
                 else if (_gravityState.RealGravityDirection == VerticalDirection.Up)
                 {
                     if (FlaiInput.IsButtonOrKeyPressed("Up", KeyCode.W))
                     {
-                        this.rigidbody2D.velocity += Vector2f.UnitY.ToVector2() * this.Speed * FunnelSpeedMultiplier * Time.deltaTime;
+                        this.GetComponent<Rigidbody2D>().velocity += Vector2f.UnitY.ToVector2() * this.Speed * FunnelSpeedMultiplier * Time.deltaTime;
                     }
                 }
             }

@@ -7,7 +7,7 @@ namespace Assets.Scripts.Menu
     public class MainMenu : FlaiScript
     {
         public GUISkin GUISkin;
-        protected override void OnGUI()
+        protected void OnGUI()
         {
             this.DrawTitle();
             const float ButtonSize = 80;

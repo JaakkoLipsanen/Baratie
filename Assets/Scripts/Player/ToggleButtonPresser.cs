@@ -14,7 +14,11 @@ namespace Assets.Scripts.Player
 
     public class ToggleButtonPresser : FlaiScript
     {
-        private static readonly LayerMaskF IgnoreMask = LayerMaskF.FromNames("Crates", "Player", "PlayerHoldingCrate", "Funnel", "Keys").Inverse;
+        private static LayerMaskF IgnoreMask
+        {
+            get { return LayerMaskF.FromNames("Crates", "Player", "PlayerHoldingCrate", "Funnel", "Keys").Inverse; }
+        }
+
         private PlayerController Controller
         {
             get { return this.Get<PlayerController>(); }
@@ -30,14 +34,14 @@ namespace Assets.Scripts.Player
 
         private void TryPressButton()
         {
-            RectangleF target = this.collider2D.GetBoundsHack().AsInflated(0.3f, Tile.Size * 0.4f);
+            RectangleF target = this.GetComponent<Collider2D>().GetBoundsHack().AsInflated(0.3f, Tile.Size * 0.4f);
             target.Center += this.Controller.FacingDirection.ToUnitVector() * target.Width * 0.5f;
             var toggleButtons = Scene.FindAllOfType<ToggleButton>().ToSet();
             var toggleButton =
                 toggleButtons.FirstOrDefault(c =>
                 {
                     var rc = Physics2D.Linecast(this.Position2D, c.Position2D, ToggleButtonPresser.IgnoreMask);
-                    return c.collider2D.GetBoundsHack().Intersects(target) && (!rc || rc.transform.Has<ToggleButton>());
+                    return c.Get<Collider2D>().GetBoundsHack().Intersects(target) && (!rc || rc.transform.Has<ToggleButton>());
                 });
 
             if (toggleButton != null)

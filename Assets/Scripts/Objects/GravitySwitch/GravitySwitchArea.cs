@@ -11,6 +11,12 @@ namespace Assets.Scripts.Objects
 
         protected override void OnTriggerEnter2D(Collider2D other)
         {
+            Debug.Log(other);
+            if (other == null || other.gameObject.GetLayerName() == "Button")
+            {
+                return; 
+            }
+
             if (_isOn && _currentGameObjectInArea == null)
             {
            //     _isOn = false;
@@ -21,9 +27,14 @@ namespace Assets.Scripts.Objects
                 return;
             }
 
-            Physics2D.gravity *= - 1;
-            _currentGameObjectInArea = other.gameObject;
-            _currentGameObjectInArea.Get<GravityState>().FlipGravityDirection();
+            Physics2D.gravity *= -1; _currentGameObjectInArea = other.gameObject;
+            var gravityState = _currentGameObjectInArea.Get<GravityState>();
+            if (gravityState != null)
+            {
+                gravityState.FlipGravityDirection();
+            }
+
+
             _isOn = true;
         }
 
@@ -40,7 +51,7 @@ namespace Assets.Scripts.Objects
 
         protected override void LateUpdate()
         {
-            if (_isOn && (_currentGameObjectInArea == null || !PhysicsHelper.Intersects(this.collider2D, _currentGameObjectInArea.collider2D, 0.1f)))
+            if (_isOn && (_currentGameObjectInArea == null || !PhysicsHelper.Intersects(this.GetComponent<Collider2D>(), _currentGameObjectInArea.GetComponent<Collider2D>(), 0.1f)))
             {
                 Physics2D.gravity *= -1;
                 if (_currentGameObjectInArea != null)

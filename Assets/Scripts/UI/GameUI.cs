@@ -14,8 +14,9 @@ namespace Assets.Scripts.UI
             _playerManager = Object.FindObjectOfType<PlayerManager>();
         }
 
-        protected override void OnGUI()
+        private void OnGUI()
         {
+            print("aa");
             this.DrawKey();
         }
 

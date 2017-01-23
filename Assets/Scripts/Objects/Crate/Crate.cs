@@ -23,7 +23,7 @@ namespace Assets.Scripts.Objects
             if (!this.IsPicked && this.Get<GravityState>().UseGravity)
             {
                 // when not picked and gravity is on (not in funnel) , reduce the x axis
-                this.rigidbody2D.velocity *= Vector2f.UnitY;
+                this.GetComponent<Rigidbody2D>().velocity *= Vector2f.UnitY;
             }
         }
 
@@ -38,7 +38,7 @@ namespace Assets.Scripts.Objects
             if (picker != null)
             {
                 _picker = picker;
-                this.rigidbody2D.isKinematic = true;
+                this.GetComponent<Rigidbody2D>().isKinematic = true;
                 FlaiDebug.LogWithTypeTag<Crate>("Crate Picked");
             }
         }
@@ -53,11 +53,11 @@ namespace Assets.Scripts.Objects
 
             if (_picker.Has<Rigidbody2D>())
             {
-                this.rigidbody2D.velocity = Vector2f.UnitY * _picker.rigidbody2D.velocity;
+                this.GetComponent<Rigidbody2D>().velocity = Vector2f.UnitY * _picker.GetComponent<Rigidbody2D>().velocity;
             }
 
             _picker = null;
-            this.rigidbody2D.isKinematic = false;
+            this.GetComponent<Rigidbody2D>().isKinematic = false;
             FlaiDebug.LogWithTypeTag<Crate>("Crate Dropped");
         }
 

@@ -63,11 +63,11 @@ namespace Assets.Scripts.General
         {
             if (!_useGravity)
             {
-                this.rigidbody2D.gravityScale = 0;
+                this.GetComponent<Rigidbody2D>().gravityScale = 0;
                 return;
             }
 
-            this.rigidbody2D.gravityScale = _gravityScale * _gravityDirection.Opposite().ToInt(); // opposite because VerticalDirection.Down is -1
+            this.GetComponent<Rigidbody2D>().gravityScale = _gravityScale * _gravityDirection.Opposite().ToInt(); // opposite because VerticalDirection.Down is -1
         }
 
         [ShowInInspector(IsReadOnly = true)]
